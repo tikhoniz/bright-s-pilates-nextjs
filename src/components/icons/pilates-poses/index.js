@@ -1,0 +1,13 @@
+export { default as SawIcon } from "./icon-saw";
+export { default as StarIcon } from "./icon-star";
+export { default as TeaserIcon } from "./icon-teaser";
+export { default as TPlankIcon } from "./icon-T-plank";
+export { default as HundredIcon } from "./icon-hundred";
+export { default as ScissorsIcon } from "./icon-scissors";
+export { default as TableTopIcon } from "./icon-table-top";
+export { default as HipTwistIcon } from "./icon-hip-twist";
+export { default as RollOverIcon } from "./icon-roll-over";
+export { default as SideBandIcon } from "./icon-side-band";
+export { default as SwanDiveIcon } from "./icon-swan-dive";
+export { default as SideTwistIcon } from "./icon-side-twist";
+export { default as LegPullBackIcon } from "./icon-leg-pull-back";
