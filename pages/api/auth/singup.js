@@ -14,9 +14,7 @@ async function handler(req, res) {
 		return;
 	}
 
-	const data = req.body;
-
-	const { name, lastName, email, password } = data;
+	const { name, lastName, email, image, password, regType } = req.body;
 
 	// легкая валидация на уровне сервера
 	if (!email || !email.includes("@")) {
@@ -24,7 +22,7 @@ async function handler(req, res) {
 		return;
 	}
 
-	if (!password || password.trim().length < 5) {
+	if (regType === "Credentials" && (!password || password.trim().length < 5)) {
 		res.status(422).json({ message: "Длина пароля не менее 5 знаков" });
 		return;
 	}
@@ -36,7 +34,7 @@ async function handler(req, res) {
 
 		if (existingUser) {
 			res.status(422).json({ message: "Этот email уже зарегистрирован" });
-			await client.close();
+			client.close();
 			return;
 		}
 
@@ -51,13 +49,14 @@ async function handler(req, res) {
 			groups: 0,
 			personalList: [],
 			groupList: [],
-			image: { url: null, id: null },
+			image: image,
 			cover: "/covers/hermit_crabs-cover.png",
 			about: "",
 			country: "",
 			city: "",
 			phoneNumber: "",
 			zoomApp: false,
+			regType: regType,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		});
@@ -77,7 +76,8 @@ async function handler(req, res) {
 
 		res.status(201).json(result);
 
-		await client.close();
+		client.close();
+		return;
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ message: "Пользователь не был создан" });

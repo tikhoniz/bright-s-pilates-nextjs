@@ -21,8 +21,11 @@ import {
 	InputAdornment,
 	Box,
 	Typography,
+	Button,
+	Divider,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import GoogleIcon from "../icons/social/icon_google";
 
 //----------------------------------------------------------------------
 
@@ -87,9 +90,6 @@ export default function LoginForm({ router, isVerified, setResetHandler }) {
 					)}
 
 					<Box sx={{ flexGrow: 1 }}>
-						<Typography variant="h4" gutterBottom>
-							Вход в аккаунт
-						</Typography>
 						<Typography sx={{ color: "text.secondary" }}>
 							Введите свой почтовый адрес и пароль.
 						</Typography>

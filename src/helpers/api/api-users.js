@@ -7,20 +7,26 @@ const publitio = new PublitioAPI(
 //* @desc Create a user
 //* @route POST /api/auth/singup
 //* @access Public
-export async function createUser(name, lastName, email, password) {
-	const response = await fetch("/api/auth/singup", {
+export async function createUser({
+	name,
+	lastName,
+	email,
+	image,
+	password,
+	regType,
+}) {
+	const response = await fetch(`${process.env.localhost}/api/auth/singup`, {
 		method: "POST",
-		body: JSON.stringify({ name, lastName, email, password }),
+		body: JSON.stringify({ name, lastName, email, image, password, regType }),
 		headers: { "Content-Type": "application/json" },
 	})
-		.then((response) => {
+		.then(async (response) => {
 			if (response.ok) {
 				return response.json();
 			}
 			//если ответ не response.ok
-			return response.json().then((data) => {
-				throw new Error(data.message || "Something went wrong!");
-			});
+			const data = await response.json();
+			throw new Error(data.message || "Something went wrong!");
 		})
 		.catch((error) => {
 			return error;
@@ -121,26 +127,26 @@ export async function updateUserProfile({
 //* @desc Add last login time to user profile
 //* @route PUT /api/users/:slug
 //* @access Private
-export async function saveLastUserLogin(userId) {
-	const response = await fetch(`${process.env.localhost}/api/users/${userId}`, {
-		method: "PUT",
-		body: JSON.stringify({}),
-		headers: { "Content-Type": "application/json" },
-	})
-		.then(async (response) => {
-			if (response.ok) {
-				return response.json();
-			}
-			//если ответ не response.ok
-			const data = await response.json();
-			throw new Error(data.message || "Something went wrong!");
-		})
-		.catch((error) => {
-			return error;
-		});
+//export async function saveLastUserLogin(userId) {
+//	const response = await fetch(`${process.env.localhost}/api/users/${userId}`, {
+//		method: "PUT",
+//		body: JSON.stringify({}),
+//		headers: { "Content-Type": "application/json" },
+//	})
+//		.then(async (response) => {
+//			if (response.ok) {
+//				return response.json();
+//			}
+//			//если ответ не response.ok
+//			const data = await response.json();
+//			throw new Error(data.message || "Something went wrong!");
+//		})
+//		.catch((error) => {
+//			return error;
+//		});
 
-	return response;
-}
+//	return response;
+//}
 
 //* @desc Change mode zoom
 //* @route PUT /api/users/zoom/:slug

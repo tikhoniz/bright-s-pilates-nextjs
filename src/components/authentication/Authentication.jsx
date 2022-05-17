@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 // material
-import { Box, Skeleton } from "@mui/material";
+import { Box, Skeleton, Button, Typography, Stack } from "@mui/material";
 import { styled } from "@mui/material";
 // components
 import Page from "../Page";
@@ -10,11 +10,13 @@ import ToggleMode from "./ToggleMode";
 import RegisterForm from "./RegisterForm";
 import ResetPasswordForm from "./ResetPasswordForm";
 import { MotionInView, varFadeIn } from "../animate";
+import { signIn } from "next-auth/react";
+import GoogleIcon from "../icons/social/icon_google";
+import FacebookIcon from "../icons/social/icon_facebook";
 
 //-------------------------------------------------------
 const RootStyle = styled(Page)(({ theme }) => ({
 	margin: theme.spacing(0, 4),
-	//* добавляеются изменения при изменении экрана
 	[theme.breakpoints.up("md")]: {
 		margin: 0,
 	},
@@ -28,9 +30,9 @@ const ContentStyle = styled("div")(({ theme }) => ({
 	minHeight: "100%",
 	flexDirection: "column",
 	justifyContent: "center",
-	paddingTop: theme.spacing(20),
+	paddingTop: theme.spacing(18),
 	[theme.breakpoints.up("md")]: {
-		paddingTop: theme.spacing(35),
+		paddingTop: theme.spacing(27),
 	},
 }));
 
@@ -38,13 +40,55 @@ const Authentication = (props) => {
 	const [isLogin, setIsLogin] = useState(true);
 	const [isReset, setIsReset] = useState(false);
 	const [isVerified, setIsVerified] = useState(false);
-
 	return (
 		<RootStyle title="Вход в аккаунт | Bright's Pilates Studio">
 			<ContentStyle>
 				{!isReset && (
 					<ToggleMode mode={isLogin} changeModeHandler={setIsLogin} />
 				)}
+				<Typography variant="h4" gutterBottom>
+					{isLogin ? "Вход в аккаунт" : "Регистрация нового аккаунта"}
+				</Typography>
+
+				<Stack
+					direction="row"
+					justifyContent="space-between"
+					spacing={2}
+					sx={{ pt: 2.5 }}
+				>
+					<Button
+						fullWidth
+						type="button"
+						variant="outlined"
+						size="large"
+						color="inherit"
+						onClick={() => signIn("google")}
+						startIcon={<GoogleIcon />}
+					>
+						Google
+					</Button>
+					<Button
+						fullWidth
+						type="button"
+						variant="outlined"
+						size="large"
+						color="inherit"
+						onClick={() => signIn("facebook")}
+						startIcon={<FacebookIcon />}
+					>
+						Facebook
+					</Button>
+				</Stack>
+
+				<Stack display="flex" spacing={2} sx={{ p: 2.5 }}>
+					<Typography
+						variant="caption"
+						align="center"
+						sx={{ letterSpacing: 2, color: "text.secondary" }}
+					>
+						ИЛИ
+					</Typography>
+				</Stack>
 
 				{isLogin && !isReset && (
 					<MotionInView variants={varFadeIn}>

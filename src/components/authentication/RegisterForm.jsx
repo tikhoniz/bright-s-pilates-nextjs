@@ -62,12 +62,14 @@ export default function RegisterForm({ router, isVerified }) {
 		validationSchema: RegisterSchema,
 		onSubmit: async (values, { setErrors, setSubmitting, resetForm }) => {
 			try {
-				const response = await createUser(
-					values.firstName,
-					values.lastName,
-					values.email,
-					values.password
-				);
+				const response = await createUser({
+					name: values.firstName,
+					lastName: values.lastName,
+					email: values.email,
+					image: { url: null, id: null },
+					password: values.password,
+					regType: "credentials",
+				});
 
 				if (!response.ok) {
 					resetForm();
@@ -118,9 +120,6 @@ export default function RegisterForm({ router, isVerified }) {
 					)}
 
 					<Box sx={{ flexGrow: 1 }}>
-						<Typography variant="h4" gutterBottom>
-							Регистрация нового аккаунта
-						</Typography>
 						<Typography sx={{ color: "text.secondary" }}>
 							* фамилию указывать не обязательно
 						</Typography>

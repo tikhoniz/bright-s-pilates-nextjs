@@ -8,7 +8,6 @@ import TermsNavigation from "./TermsNavigation";
 const RootStyle = styled("div")(({ theme }) => ({
 	position: "relative",
 	minHeight: 315,
-	background: "linear-gradient(-45deg,#51c5cf,#8ffc6ba6)",
 }));
 
 // ----------------------------------------------------------------------

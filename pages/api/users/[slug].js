@@ -19,10 +19,12 @@ async function handler(req, res) {
 	// Получает пользователя по email *//
 	if (req.method === "GET") {
 		const email = req.query.slug;
+
 		// легкая валидация на уровне сервера
 		if (!email || !email.includes("@")) {
 			// изменить сообщение об ошибки
 			res.status(422).json({ message: "Указан неверный формат почты" });
+			client.close();
 			return;
 		}
 
@@ -31,17 +33,21 @@ async function handler(req, res) {
 
 			if (!user) {
 				res.status(500).json({ message: "noUser" });
+				client.close();
+				return;
 			}
 
 			res.status(200).json(user);
+			client.close();
 			return;
 		} catch (error) {
 			res.status(500).json({ message: error.message });
+			client.close();
 			return;
 		}
 	}
 	//
-	//* Изменяет данные пользователя по ID *//
+	// Изменяет данные пользователя по ID *//
 	//
 	if (req.method === "PATCH") {
 		const userId = req.query.slug;
@@ -75,6 +81,7 @@ async function handler(req, res) {
 				res.status(404).json({
 					message: "Не удалось получить пользователя из базы данных",
 				});
+				client.close();
 				return;
 			}
 
@@ -107,6 +114,7 @@ async function handler(req, res) {
 				res.status(404).json({
 					message: "Не удалось получить пользователя из базы данных",
 				});
+				client.close();
 				return;
 			}
 
@@ -118,10 +126,12 @@ async function handler(req, res) {
 			);
 
 			res.status(200).json(result);
+			client.close();
 		} catch (error) {
 			res
 				.status(500)
 				.json({ message: "Обновить данные профиля пользователя не удалось" });
+			client.close();
 		}
 	}
 }

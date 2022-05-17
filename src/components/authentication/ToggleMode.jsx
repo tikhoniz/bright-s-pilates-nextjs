@@ -14,7 +14,7 @@ const HeaderStyle = styled("header")(({ theme }) => ({
 	justifyContent: "space-between",
 	alignItems: "center",
 	[theme.breakpoints.up("md")]: {
-		top: 200,
+		top: 150,
 	},
 }));
 
