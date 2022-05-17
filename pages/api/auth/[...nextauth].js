@@ -10,8 +10,6 @@ import { verifyPassword } from "../../../src/helpers/auth";
 import { createUser } from "../../../src/helpers/api/api-users";
 
 //import { saveLastUserLogin } from "../../../src/helpers/api/api-users";
-//
-const sendgridMail = require("@sendgrid/mail");
 
 export default NextAuth({
 	session: { jwt: true },
@@ -89,7 +87,8 @@ export default NextAuth({
 	},
 
 	pages: {
-		error: "/auth/error", // Error code passed in query string as ?error=
+		error: "/auth/error",
+		signIn: "/auth", // Error code passed in query string as ?error=
 	},
 });
 
