@@ -24,8 +24,34 @@ import SingupButton from "../buttons/SingupButton";
 // icons
 import MAvatar from "../../@material-extend/MAvatar";
 
+import { styled, alpha } from "@mui/material";
+
 //----------------------------------------------------------------
 const buttonWidth = 165;
+
+const TableRowStyle = styled(TableRow)(({ theme }) => ({
+	//backgroundColor: "#fff",
+	//transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+	//boxShadow: "inset 0 12px 10px 0 rgba(0,0,0,0.15)",
+	//"0 0 2px 0 rgb(145 158 171 / 24%), 0 16px 32px -4px rgb(145 158 171 / 24%)",
+
+	//overflow: "hidden",
+	//border: "23px solid red",
+	borderRadius: "16px",
+	//paddingBottom: 10,
+	//margin: 10,
+
+	"&:hover": {
+		//zIndex: 999,
+		//position: "relative",
+		//boxShadow: theme.customShadows.z24,
+		transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+
+		boxShadow: "inset 0 0 12px 0 rgb(145 158 171 / 24%)",
+
+		//"& .showActions": { opacity: 1 },
+	},
+}));
 //----------------------------------------------------------------
 
 const DesktopScreenRow = ({
@@ -53,7 +79,7 @@ const DesktopScreenRow = ({
 
 	const { zoomApp } = user;
 	return (
-		<TableRow>
+		<TableRowStyle>
 			<TableCell>
 				<Tooltip
 					disableHoverListener={!isInvolved}
@@ -177,7 +203,7 @@ const DesktopScreenRow = ({
 					/>
 				)}
 			</TableCell>
-		</TableRow>
+		</TableRowStyle>
 	);
 };
 

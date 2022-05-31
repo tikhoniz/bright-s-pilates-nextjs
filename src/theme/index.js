@@ -21,17 +21,18 @@ ThemeConfig.propTypes = {
 function ThemeConfig({ children }) {
 	const themeOptions = useMemo(
 		() => ({
-			palette: { ...palette.light, mode: "light" },
+			palette,
 			shape,
 			typography,
 			breakpoints,
-			shadows: shadows.light,
-			customShadows: customShadows.light,
+			shadows,
+			customShadows,
 		}),
 		[]
 	);
 
 	const theme = createTheme(themeOptions);
+
 	theme.components = componentsOverride(theme);
 
 	return (

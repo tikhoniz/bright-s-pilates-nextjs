@@ -27,9 +27,7 @@ async function handler(req, res) {
 					_id: -1, //отсортирует сначала новые
 				}
 			);
-			//console.log(
-			//	"[api/orders/user/[slug]]: Получает список оплаченных заказов"
-			//);
+
 			res.status(200).json(documents);
 		} catch (error) {
 			res.status(500).json({ message: "Getting orders failed" });

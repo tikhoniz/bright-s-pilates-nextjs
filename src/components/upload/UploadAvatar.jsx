@@ -72,6 +72,7 @@ export default function UploadAvatar({ error, data, caption, sx, ...other }) {
 		isDragReject,
 		fileRejections,
 	} = useDropzone({
+		multiple: false,
 		...other,
 	});
 

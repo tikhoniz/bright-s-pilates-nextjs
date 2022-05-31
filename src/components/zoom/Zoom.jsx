@@ -46,7 +46,7 @@ const Zoom = ({ user, onlineClass }) => {
 				ZoomMtg.join({
 					signature: data?.signature,
 					meetingNumber: meetingNumber,
-					userName: user.name,
+					userName: user?.name,
 					apiKey: apiKey,
 					userEmail: userEmail,
 					passWord: passWord,

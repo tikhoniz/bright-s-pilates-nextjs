@@ -31,13 +31,11 @@ const GREY = {
 //* цвета для всей темы
 // основные
 const PRIMARY = {
-	//новый цвет
 	main: "#51c5cf",
 	dark: "#00aebd",
 	darker: "#005249",
 	lighter: "#C8FACD",
 	light: "#5BE584",
-	//main: "#73c6cd",
 	contrastText: "#fff",
 };
 
@@ -123,22 +121,10 @@ const COMMON = {
 };
 
 const palette = {
-	light: {
-		...COMMON,
-		text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-		background: { paper: "#fff", default: "#fff", neutral: GREY[200] },
-		action: { active: GREY[600], ...COMMON.action },
-	},
-	dark: {
-		...COMMON,
-		text: { primary: "#fff", secondary: GREY[500], disabled: GREY[600] },
-		background: {
-			paper: GREY[800],
-			default: GREY[900],
-			neutral: GREY[500_16],
-		},
-		action: { active: GREY[500], ...COMMON.action },
-	},
+	...COMMON,
+	text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
+	background: { paper: "#fff", default: "#fff", neutral: GREY[200] },
+	action: { active: GREY[600], ...COMMON.action },
 };
 
 export default palette;

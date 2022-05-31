@@ -1,18 +1,15 @@
 import React from "react";
+// next
 import Image from "next/image";
+// material
+import { Card, Divider, Typography, IconButton } from "@mui/material";
+import { styled } from "@mui/material";
+// icons
+import { Icon } from "@iconify/react";
+import playCircleOutline from "@iconify/icons-eva/play-circle-outline";
+import pauseCircleOutline from "@iconify/icons-eva/pause-circle-outline";
 
-import {
-	Box,
-	Card,
-	Grid,
-	Avatar,
-	Tooltip,
-	Divider,
-	Typography,
-	IconButton,
-} from "@mui/material";
-
-import { styled, alpha } from "@mui/material";
+//----------------------------------------------------------------------
 
 const CardMediaStyle = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -26,11 +23,8 @@ const CardMediaStyle = styled("div")(({ theme }) => ({
 		width: "100%",
 		height: "100%",
 		position: "absolute",
-		//backdropFilter: "blur(3px)",
-		//WebkitBackdropFilter: "blur(3px)", // Fix on Mobile
 		borderTopLeftRadius: theme.shape.borderRadiusMd,
 		borderTopRightRadius: theme.shape.borderRadiusMd,
-		//backgroundColor: alpha(theme.palette.primary.darker, 0.72),
 	},
 
 	"&:hover": {
@@ -52,7 +46,7 @@ const CoverHoverStyle = styled("div")(({ theme }) => ({
 	position: "absolute",
 	alignItems: "center",
 	justifyContent: "center",
-	borderRadius: theme.shape.borderRadius,
+	//borderRadius: theme.shape.borderRadius,
 	backgroundColor: "#00000046",
 	transition: theme.transitions.create("opacity", {
 		easing: theme.transitions.easing.easeIn,
@@ -60,28 +54,50 @@ const CoverHoverStyle = styled("div")(({ theme }) => ({
 	}),
 }));
 
-const CoverHover = ({ className }) => {
+const PlayStyle = styled(IconButton)(({ theme }) => ({
+	width: 96,
+	height: 96,
+	color: theme.palette.grey[300],
+}));
+
+//----------------------------------------------------------------------
+
+const CoverHover = ({ className, isOpen }) => {
 	return (
-		<CoverHoverStyle className={className}>hgguguyguyguyguyguy</CoverHoverStyle>
+		<CoverHoverStyle className={className}>
+			<PlayStyle>
+				<Icon
+					icon={isOpen ? pauseCircleOutline : playCircleOutline}
+					width={76}
+					height={76}
+				/>
+			</PlayStyle>
+		</CoverHoverStyle>
 	);
 };
 
-const VideoItem = () => {
+const VideoCard = ({ video, isOpen, openVideoHandler }) => {
+	const coverUrl =
+		process.env.publitio_youtube_video_covers_folder + video?.cover?.url;
+
 	return (
-		<Card>
+		<Card
+			onClick={() => openVideoHandler(video.youtubeId)}
+			sx={{ cursor: "pointer" }}
+		>
 			<CardMediaStyle>
 				<Image
 					alt="profile-cover"
-					src="/images/coach-cover-image.jpg"
+					src={coverUrl}
 					layout="fill"
 					objectFit="cover"
 					loading="lazy"
 				/>
-				<CoverHover className="showActions" />
+				<CoverHover className="showActions" isOpen={isOpen} />
 			</CardMediaStyle>
 
 			<Typography variant="subtitle1" align="center" sx={{ my: 2 }}>
-				Название ролика
+				{video.title}
 			</Typography>
 
 			<Divider />
@@ -91,10 +107,10 @@ const VideoItem = () => {
 				align="center"
 				sx={{ color: "text.secondary", py: 1 }}
 			>
-				Описание ролика
+				{video.description}
 			</Typography>
 		</Card>
 	);
 };
 
-export default VideoItem;
+export default VideoCard;

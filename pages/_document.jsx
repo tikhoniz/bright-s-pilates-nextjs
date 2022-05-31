@@ -13,8 +13,9 @@ class MyDocument extends Document {
 		return (
 			<Html lang="ru">
 				<Head>
-					<meta name="theme-color" content={palette.light.primary.main} />
-					<link
+					<meta name="theme-color" content={palette.primary.main} />
+					<link rel="shortcut icon" href="/favicon/favicon.ico" />
+					<links
 						rel="apple-touch-icon"
 						sizes="180x180"
 						href="/favicon/apple-touch-icon.png"
@@ -98,8 +99,8 @@ class MyDocument extends Document {
 					</noscript>
 					<Main />
 					<NextScript />
-					<div id="drawer-hook"></div>
-					<div id="modal-hook"></div>
+					{/*<div id="drawer-hook"></div>
+					<div id="modal-hook"></div>*/}
 				</body>
 			</Html>
 		);

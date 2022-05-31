@@ -29,7 +29,7 @@ const ZoomToggle = () => {
 
 	const [isSubmitting, setSubmitting] = useState(false);
 
-	const { _id: userId, zoomApp, email } = user;
+	const { _id: userId, zoomApp, email } = user || {};
 
 	useEffect(() => {
 		!isValidating && setSubmitting(false);

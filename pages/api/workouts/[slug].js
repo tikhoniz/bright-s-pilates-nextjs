@@ -1,7 +1,7 @@
 import {
 	connectDatabase,
-	deleteDocumentById,
-	getDocumentById,
+	deleteDocument,
+	getDocument,
 	updateDocument,
 } from "../../../src/helpers/db";
 
@@ -20,7 +20,7 @@ async function handler(req, res) {
 	//* Получаем тренировку по ID
 	if (req.method === "GET") {
 		try {
-			const document = await getDocumentById(client, "workouts", workoutId);
+			const document = await getDocument(client, "workouts", workoutId);
 
 			res.status(200).json({ workout: document });
 		} catch (error) {
@@ -31,7 +31,7 @@ async function handler(req, res) {
 	//* Обновление тренировки
 	if (req.method === "PATCH") {
 		try {
-			const document = await getDocumentById(client, "workouts", workoutId);
+			const document = await getDocument(client, "workouts", workoutId);
 
 			if (document && req.body.id === workoutId) {
 				document.title = req.body.title;
@@ -62,11 +62,7 @@ async function handler(req, res) {
 	//* Удаляет тренировку по ID
 	if (req.method === "DELETE") {
 		try {
-			const { result } = await deleteDocumentById(
-				client,
-				"workouts",
-				req.body._id
-			);
+			const { result } = await deleteDocument(client, "workouts", req.body._id);
 
 			res.status(200).json({ message: "deletedWorkout", response: result });
 		} catch (error) {

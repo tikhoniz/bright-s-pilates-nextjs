@@ -69,7 +69,7 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 		}
 	}, [isExpired]);
 
-	const { _id: userId, zoomApp } = user;
+	const { _id: userId, zoomApp } = user || {};
 	const {
 		_id: classId,
 		type,

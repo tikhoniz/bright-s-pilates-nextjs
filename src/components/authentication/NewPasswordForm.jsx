@@ -132,7 +132,7 @@ function NewPasswordForm({ token, router }) {
 															<Icon
 																icon={showPassword ? eyeFill : eyeOffFill}
 															/>
-															<Icon />
+															{/*<Icon />*/}
 														</IconButton>
 													</InputAdornment>
 												),

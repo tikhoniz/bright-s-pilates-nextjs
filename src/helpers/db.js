@@ -38,17 +38,20 @@ export async function getFilteredDocuments(client, collection, filter, sort) {
 // Получает документы из базы
 export async function getDocuments(client, collection, sort) {
 	const db = client.db();
+
 	const documents = await db
 		.collection(collection)
 		.find({})
 		.sort(sort)
 		.toArray();
 	//.easy(); расскоментировать для ошибки
+
+	//console.log("Получить коллекцию постов", documents);
 	return documents;
 }
 
 // Получает документ из базы по ID
-export async function getDocumentById(client, collection, id) {
+export async function getDocument(client, collection, id) {
 	const db = client.db();
 
 	// оборачиваем входящий id в объект mongoDB
@@ -94,7 +97,7 @@ export async function getUserByToken(client, collection, token) {
 }
 
 // Удаляет документ из базы по ID
-export async function deleteDocumentById(client, collection, id) {
+export async function deleteDocument(client, collection, id) {
 	const db = client.db();
 	// оборачиваем входящий id в объект mongoDB
 	const documentId = ObjectId(id);
@@ -114,6 +117,113 @@ export async function updateDocument(client, collection, id, updatedDocument) {
 	const result = await db
 		.collection(collection)
 		.replaceOne({ _id: documentId }, updatedDocument);
+
+	return result;
+}
+
+//* SCHEDULE *//
+// получает список будущих классов без определенных полей
+export async function getScheduleClasses(client, collection) {
+	// Получает список предстоящих групповых классов
+	// время начала которых не позже текущего времени
+	// минус [ delay_to_remove_from_schedule ]
+	const delay = process.env.delay_to_remove_from_schedule;
+	const t = new Date(new Date().getTime() - delay * 60 * 1000).toISOString();
+
+	const db = client.db();
+	//получаем всю коллекцию из базы данных
+	const documents = await db
+		.collection(collection)
+		.find(
+			{
+				startTime: {
+					$gte: t,
+				},
+			},
+			{
+				projection: {
+					invitationLink: 0,
+					conferenceId: 0,
+					accessCode: 0,
+					creator: 0,
+					createdAt: 0,
+					updatedAt: 0,
+					participants: 0,
+				},
+			}
+		)
+		.sort({ startTime: 1 }) // отсортирует сначала ближайшие к началу
+		.toArray();
+
+	return documents;
+}
+
+//* BLOG *//
+
+// Получает все посты блога без содержания и комментариев
+export async function getPost(client, collection, id) {
+	const db = client.db();
+
+	// оборачиваем входящий id в объект mongoDB
+	const documentId = ObjectId(id);
+
+	//получаем
+	const document = await db
+		.collection(collection)
+		.findOne(
+			{ _id: documentId },
+			{ projection: { comments: { email: 0, replyComment: { email: 0 } } } }
+		);
+
+	return document;
+}
+// Получает все посты блога без содержания и комментариев
+export async function getAllBlogPosts(client, collection, sort) {
+	const db = client.db();
+
+	const documents = await db
+		.collection(collection)
+		.find({ publish: true }, { projection: { body: 0, comments: 0 } })
+		.sort(sort)
+		.toArray();
+	//.easy(); расскоментировать для ошибки
+	return documents;
+}
+
+// добавляет новый коммент в массив комментариев
+export async function addBlogPostComment(client, collection, postId, newItem) {
+	const db = client.db();
+
+	// оборачиваем входящий id в объект mongoDB
+	const documentId = ObjectId(postId);
+
+	const { result } = await db
+		.collection(collection)
+		.updateOne({ _id: documentId }, { $push: { comments: { ...newItem } } });
+	//.easy(); расскоментировать для ошибки;
+	return result;
+}
+
+// добавляет новый ответ на комментарий
+export async function replayComment(
+	client,
+	collection,
+	postId,
+	commentId,
+	newAnswer
+) {
+	const db = client.db();
+
+	// оборачиваем входящий id в объект mongoDB
+	const documentId = ObjectId(postId);
+
+	const { result } = await db.collection(collection).updateOne(
+		{
+			_id: documentId,
+			"comments.id": commentId,
+		},
+		{ $push: { "comments.$.replyComment": { ...newAnswer } } }
+	);
 
 	return result;
 }

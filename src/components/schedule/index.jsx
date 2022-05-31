@@ -7,7 +7,6 @@ import useUser from "../../hooks/useUser";
 // material
 import {
 	Grid,
-	Card,
 	Stack,
 	Table,
 	Skeleton,
@@ -26,7 +25,7 @@ import ScheduleRow from "./ScheduleRow";
 import { MotionInView, varFadeIn } from "../animate";
 //icons
 import { Icon } from "@iconify/react";
-import BaselineGroups from "@iconify/icons-ic/baseline-groups";
+import baselineCalendarToday from "@iconify/icons-ic/baseline-calendar-today";
 import renderMessage from "../../helpers/renderMessage";
 
 const SkeletonLoad = () => {
@@ -78,52 +77,50 @@ export default function Schedule() {
 		revalidateIfStale: true,
 	});
 
-	const { user, isError } = useUser();
+	const { user } = useUser();
 
-	if (error || isError)
-		return `${error || isError}: ${renderMessage(
-			error?.info || isError?.info
-		)}. Код ошибки: ${error?.status || isError?.status}`;
+	if (error)
+		return `${error}: ${renderMessage(error?.info)}. Код ошибки: ${
+			error?.status
+		}`;
 
 	return (
 		<Container maxWidth="xl">
 			<MotionInView variants={varFadeIn}>
-				<Card>
-					<CardHeader
-						title="Расписание тренировок"
-						sx={{ mb: 3 }}
-						avatar={<Icon icon={BaselineGroups} width={26} height={26} />}
-					/>
+				<CardHeader
+					title="Расписание тренировок"
+					sx={{ mb: 3 }}
+					avatar={<Icon icon={baselineCalendarToday} width={26} height={26} />}
+				/>
 
-					<Scrollbar>
-						<TableContainer sx={{ minHeight: 355 }}>
-							{!data && <SkeletonLoad />}
+				<Scrollbar>
+					<TableContainer sx={{ minHeight: 355 }}>
+						{!data && <SkeletonLoad />}
 
-							{data && (
-								<MotionInView variants={varFadeIn}>
-									<Table>
-										{isDesktop && <TableHead />}
-										<TableBody>
-											{data.length < 1 ? (
-												<NoClasses />
-											) : (
-												data.map((row) => (
-													<ScheduleRow
-														key={row?._id}
-														cls={row ?? {}}
-														user={user ?? {}}
-														router={router}
-														isDesktop={isDesktop}
-													/>
-												))
-											)}
-										</TableBody>
-									</Table>
-								</MotionInView>
-							)}
-						</TableContainer>
-					</Scrollbar>
-				</Card>
+						{data && (
+							<MotionInView variants={varFadeIn}>
+								<Table>
+									{isDesktop && <TableHead />}
+									<TableBody>
+										{data.length < 1 ? (
+											<NoClasses />
+										) : (
+											data.map((row) => (
+												<ScheduleRow
+													key={row?._id}
+													cls={row ?? {}}
+													user={user ?? {}}
+													router={router}
+													isDesktop={isDesktop}
+												/>
+											))
+										)}
+									</TableBody>
+								</Table>
+							</MotionInView>
+						)}
+					</TableContainer>
+				</Scrollbar>
 			</MotionInView>
 		</Container>
 	);

@@ -1,9 +1,10 @@
 import { Icon } from "@iconify/react";
 import homeFill from "@iconify/icons-ant-design/home-fill";
 import loginOutlined from "@iconify/icons-ant-design/login-outlined";
-import scheduleFilled from "@iconify/icons-ant-design/schedule-filled";
+import baselineCalendarToday from "@iconify/icons-ic/baseline-calendar-today";
 import dollarCircleFilled from "@iconify/icons-ant-design/dollar-circle-filled";
-import videoCameraFilled from "@iconify/icons-ant-design/video-camera-filled";
+import roundOndemandVideo from "@iconify/icons-ic/round-ondemand-video";
+import roundEditNote from "@iconify/icons-ic/round-edit-note";
 
 import baselineAdminPanelSettings from "@iconify/icons-ic/baseline-admin-panel-settings";
 
@@ -22,18 +23,23 @@ const menuConfig = {
 		{
 			title: "Расписание",
 			path: "/schedule",
-			icon: <Icon icon={scheduleFilled} {...ICON_SIZE} />,
+			icon: <Icon icon={baselineCalendarToday} {...ICON_SIZE} />,
 		},
 		//{
 		//	title: "Стоимость",
 		//	path: "/pricing",
 		//	icon: <Icon icon={dollarCircleFilled} {...ICON_SIZE} />,
 		//},
-		//{
-		//	title: "Видео",
-		//	path: "/videos",
-		//	icon: <Icon icon={videoCameraFilled} {...ICON_SIZE} />,
-		//},
+		{
+			title: "Видео",
+			path: "/video",
+			icon: <Icon icon={roundOndemandVideo} {...ICON_SIZE} />,
+		},
+		{
+			title: "Блог",
+			path: "/blog",
+			icon: <Icon icon={roundEditNote} {...ICON_SIZE} />,
+		},
 	],
 	linkLogin: {
 		title: "Войти",

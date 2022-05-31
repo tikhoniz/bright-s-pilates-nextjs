@@ -24,9 +24,9 @@ export const createGroupClass = async (userEmail) => {
 	return response;
 };
 
-////* @desc  Updated a online group class
-////* @route  PATCH /api/classes/:slug
-////* @access Admin
+//* @desc  Updated a online group class
+//* @route  PATCH /api/classes/:slug
+//* @access Admin
 export const updateGroupClass = async (cls) => {
 	const classId = cls.id;
 

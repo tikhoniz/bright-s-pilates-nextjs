@@ -1,4 +1,4 @@
-import { connectDatabase, getDocumentById } from "../../../src/helpers/db";
+import { connectDatabase, getDocument } from "../../../src/helpers/db";
 
 async function handler(req, res) {
 	let client;
@@ -14,7 +14,7 @@ async function handler(req, res) {
 	if (req.method === "GET") {
 		try {
 			const orderId = req.query.slug;
-			const document = await getDocumentById(client, "orders", orderId);
+			const document = await getDocument(client, "orders", orderId);
 
 			res.status(200).json(document);
 		} catch (error) {

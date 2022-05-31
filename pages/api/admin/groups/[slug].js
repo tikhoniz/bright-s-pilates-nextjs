@@ -1,8 +1,8 @@
 import { getSession } from "next-auth/react";
 import {
 	connectDatabase,
-	deleteDocumentById,
-	getDocumentById,
+	deleteDocument,
+	getDocument,
 	updateDocument,
 } from "../../../../src/helpers/db";
 
@@ -30,7 +30,7 @@ async function handler(req, res) {
 	// Обновляет онлайн класс по ID
 	if (req.method === "PATCH") {
 		try {
-			const document = await getDocumentById(client, "groups", classId);
+			const document = await getDocument(client, "groups", classId);
 			// приведение id mongo  к строке
 			if (document._id.toString() === classId) {
 				document.title = req.body.title || document.title;
@@ -57,7 +57,7 @@ async function handler(req, res) {
 	// Удаляет онлайн класс по ID
 	if (req.method === "DELETE") {
 		try {
-			const { result } = await deleteDocumentById(client, "groups", classId);
+			const { result } = await deleteDocument(client, "groups", classId);
 
 			res.status(200).json(result);
 		} catch (error) {

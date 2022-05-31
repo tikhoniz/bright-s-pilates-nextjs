@@ -1,6 +1,6 @@
 import {
 	connectDatabase,
-	getDocumentById,
+	getDocument,
 	updateDocument,
 } from "../../../../src/helpers/db";
 // utils
@@ -22,8 +22,8 @@ async function handler(req, res) {
 		const classId = req.query.slug;
 
 		try {
-			const user = await getDocumentById(client, "users", userId);
-			const onlineClass = await getDocumentById(client, "groups", classId);
+			const user = await getDocument(client, "users", userId);
+			const onlineClass = await getDocument(client, "groups", classId);
 
 			const currentTime = getCurrentTime();
 			const cancelTimeClassExpired =

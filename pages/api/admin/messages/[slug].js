@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 import {
 	updateDocument,
 	connectDatabase,
-	getDocumentById,
+	getDocument,
 	//getFilteredDocuments,
 } from "../../../../src/helpers/db";
 
@@ -31,7 +31,7 @@ async function handler(req, res) {
 	if (req.method === "PATCH") {
 		const messageId = req.query.slug;
 		try {
-			const document = await getDocumentById(client, "messages", messageId);
+			const document = await getDocument(client, "messages", messageId);
 			// приведение id mongo  к строке
 			if (document._id.toString() === messageId) {
 				document.response = req.body.answer || document.response;

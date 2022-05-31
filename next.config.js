@@ -34,6 +34,10 @@ module.exports = (phase) => {
 				publitio_secret_key: process.env.PUBLITIO_SECRET_KEY,
 				publitio_avatars_folder:
 					"https://media.publit.io/file/w_450/userAvatars/",
+				publitio_covers_folder:
+					"https://media.publit.io/file/w_450/postCovers/",
+				publitio_youtube_video_covers_folder:
+					"https://media.publit.io/file/w_450/youtubeVideoCovers/",
 				//google
 				google_analytics: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
 				//social
@@ -104,6 +108,9 @@ module.exports = (phase) => {
 			publitio_secret_key: process.env.PUBLITIO_SECRET_KEY,
 			publitio_avatars_folder:
 				"https://media.publit.io/file/w_450/userAvatars/",
+			publitio_covers_folder: "https://media.publit.io/file/w_450/postCovers/",
+			publitio_youtube_video_covers_folder:
+				"https://media.publit.io/file/w_450/youtubeVideoCovers/",
 			//google
 			google_analytics: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
 			//social

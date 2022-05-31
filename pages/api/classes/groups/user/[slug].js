@@ -37,10 +37,6 @@ async function handler(req, res) {
 				delete it.participants;
 			});
 
-			//console.log(
-			//	"[api/classes/user/[slug]]: Получает список тренировок пользователя"
-			//); //! delete for production
-
 			res.status(200).json(userClasses);
 		} catch (error) {
 			res.status(500).json({ message: error.message });

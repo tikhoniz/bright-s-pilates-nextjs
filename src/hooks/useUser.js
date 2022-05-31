@@ -17,14 +17,14 @@ function useUser() {
 	);
 
 	if (error?.info === "noUser") signOut();
-
+	//! изменить
 	delete data?.createdAt;
 	delete data?.lastLogin;
 	delete data?.updatedAt;
 	delete data?.password;
 
 	return {
-		user: data ?? {},
+		user: data,
 		isLoading: !error && !data,
 		isError: error,
 		isValidating: isValidating,

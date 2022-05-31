@@ -49,7 +49,7 @@ const SkeletonLoad = () => {
 
 const ProfileAbout = () => {
 	const { user, isLoading, isError } = useUser();
-	const { about, country, email, city } = user;
+	const { about, country, email, city } = user || {};
 
 	if (isError) return "ОШИБКА...";
 

@@ -52,7 +52,6 @@ const StripeCheckout = ({ order }) => {
 		const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 		// запускает на объекте stripe функцию redirectToCheckout
 		// достает из ответа id заказа и вызывает api/payment/stripe/[id]
-		console.log("sessionId", id);
 		await stripe.redirectToCheckout({ sessionId: id });
 	};
 

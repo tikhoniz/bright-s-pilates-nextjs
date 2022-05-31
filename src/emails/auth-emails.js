@@ -49,7 +49,7 @@ const newUserMail = (user, locale = "ru") => {
 		return {
 			to: "brightspilates@gmail.com",
 			from: process.env.info_email_from,
-			subject: `Регистрация нового пользователя ${user.name} ${user.lastName}`,
+			subject: `Регистрация нового пользователя ${user?.name} ${user?.lastName}`,
 			html: `
 			<table border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="width:90%; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; margin: 0 auto; max-width:500px;">
   <tbody>
@@ -85,9 +85,9 @@ const newUserMail = (user, locale = "ru") => {
             </tr>
             <tr>
               <td>
-                <p style="color: #666666;font-size: 16px; font-weight: 400; line-height: 170%;"> Имя: ${user.name}</p>
-                <p style="color: #666666;font-size: 16px; font-weight: 400; line-height: 170%;"> Фамилия: ${user.lastName}</p>
-                <p style="color: #666666;font-size: 16px; font-weight: 400; line-height: 170%;"> Почта: ${user.email}</p>
+                <p style="color: #666666;font-size: 16px; font-weight: 400; line-height: 170%;"> Имя: ${user?.name}</p>
+                <p style="color: #666666;font-size: 16px; font-weight: 400; line-height: 170%;"> Фамилия: ${user?.lastName}</p>
+                <p style="color: #666666;font-size: 16px; font-weight: 400; line-height: 170%;"> Почта: ${user?.email}</p>
               </td>
             </tr>
           </tbody>

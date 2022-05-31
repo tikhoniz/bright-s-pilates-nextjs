@@ -1,6 +1,6 @@
 import {
 	connectDatabase,
-	getDocumentById,
+	getDocument,
 	insertDocument,
 	updateDocument,
 } from "../../../../src/helpers/db";
@@ -21,7 +21,7 @@ async function handler(req, res) {
 	//	const userId = req.query.slug;
 
 	//	try {
-	//		const user = await getDocumentById(client, "users", userId);
+	//		const user = await getDocument(client, "users", userId);
 
 	//		if (!user) {
 	//			res.status(404).json({ message: "user not found" });

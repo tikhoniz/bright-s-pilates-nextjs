@@ -24,7 +24,7 @@ export default function ProfileContactForm() {
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
-	const { _id: userId, email, name } = user;
+	const { _id: userId, email, name } = user || {};
 
 	// валидация с помощью пакета Yup
 	const ContactSchema = Yup.object().shape({

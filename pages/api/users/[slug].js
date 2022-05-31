@@ -1,7 +1,7 @@
 import {
 	updateDocument,
 	getUserByEmail,
-	getDocumentById,
+	getDocument,
 	connectDatabase,
 } from "../../../src/helpers/db";
 
@@ -63,7 +63,7 @@ async function handler(req, res) {
 		} = req.body;
 
 		try {
-			const document = await getDocumentById(client, "users", userId);
+			const document = await getDocument(client, "users", userId);
 
 			if (document) {
 				if (avatar !== undefined) {
@@ -106,7 +106,7 @@ async function handler(req, res) {
 	if (req.method === "PUT") {
 		const userId = req.query.slug;
 		try {
-			const document = await getDocumentById(client, "users", userId);
+			const document = await getDocument(client, "users", userId);
 
 			if (document) {
 				document.lastLogin = new Date();

@@ -37,7 +37,7 @@ const PayPalCheckout = ({ order }) => {
 
 	const { id, qty, type, discount, description, regularPrice, discountPrice } =
 		order;
-	const { _id, name, email } = user;
+	const { _id, name, email } = user || {};
 
 	// при успешной оплате обновляет заказ и пользователя
 	async function successPaymentHandler(paymentResult) {

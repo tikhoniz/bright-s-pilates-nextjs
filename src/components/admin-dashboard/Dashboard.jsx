@@ -13,6 +13,8 @@ import roundAccountBox from "@iconify/icons-ic/sharp-insert-chart-outlined";
 import outlineHistoryEdu from "@iconify/icons-ic/outline-video-camera-front";
 import BaselineSelfImprovement from "@iconify/icons-ic/baseline-self-improvement";
 import BaselineForwardToInbox from "@iconify/icons-ic/baseline-forward-to-inbox";
+import NewPost from "./posts";
+import VideoList from "./videos";
 
 // ----------------------------------------------------------------------
 
@@ -85,10 +87,22 @@ const Dashboard = () => {
 			icon: <Icon icon={BaselineForwardToInbox} width={20} height={20} />,
 			component: <MessageList />,
 		},
+		{
+			id: "post",
+			value: "Добавить пост",
+			icon: <Icon icon={BaselineForwardToInbox} width={20} height={20} />,
+			component: <NewPost />,
+		},
+		{
+			id: "video",
+			value: "Видео",
+			icon: <Icon icon={BaselineForwardToInbox} width={20} height={20} />,
+			component: <VideoList />,
+		},
 	];
 
 	return (
-		<Container maxWidth="xxl">
+		<Container maxWidth="xl">
 			<TabsWrapperStyle>
 				<Tabs
 					value={currentTab}

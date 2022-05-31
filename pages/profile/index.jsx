@@ -25,6 +25,7 @@ const ProfilePage = () => {
 			description="Личный кабинет пользователя онлайн студии пилатеса"
 		>
 			<h1 className="visually-hidden">Профиль</h1>
+
 			<Profile />
 		</RootStyle>
 	);

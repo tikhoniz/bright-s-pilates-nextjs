@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 // material
-import { Box, Skeleton, Button, Typography, Stack } from "@mui/material";
+import {
+	Box,
+	Skeleton,
+	Button,
+	Typography,
+	Stack,
+	Divider,
+} from "@mui/material";
 import { styled } from "@mui/material";
 // components
 import Page from "../Page";
@@ -44,51 +51,71 @@ const Authentication = (props) => {
 		<RootStyle title="Вход в аккаунт | Bright's Pilates Studio">
 			<ContentStyle>
 				{!isReset && (
-					<ToggleMode mode={isLogin} changeModeHandler={setIsLogin} />
+					<>
+						<ToggleMode mode={isLogin} changeModeHandler={setIsLogin} />
+
+						<Typography variant="h4" gutterBottom>
+							{isLogin ? "Вход в аккаунт" : "Регистрация нового аккаунта"}
+						</Typography>
+						<Stack
+							direction="row"
+							justifyContent="space-between"
+							spacing={2}
+							sx={{ pt: 2.5 }}
+						>
+							<Button
+								fullWidth
+								type="button"
+								variant="outlined"
+								size="large"
+								color="inherit"
+								onClick={() => signIn("google")}
+								startIcon={<GoogleIcon />}
+							>
+								Google
+							</Button>
+							<Button
+								fullWidth
+								type="button"
+								variant="outlined"
+								size="large"
+								color="inherit"
+								onClick={() => signIn("facebook")}
+								startIcon={<FacebookIcon />}
+							>
+								Facebook
+							</Button>
+						</Stack>
+
+						{/*<Stack display="flex" spacing={2} sx={{ p: 2.5 }}>
+							<Typography
+								paragraph
+								variant="h6"
+								align="center"
+								sx={{ color: "text.secondary" }}
+							>
+								или
+							</Typography>
+						</Stack>*/}
+
+						<Divider
+							sx={{
+								my: 4,
+								width: "100%",
+								alignSelf: "center",
+							}}
+						>
+							<Typography
+								variant="subtitle2"
+								sx={{
+									color: "text.secondary",
+								}}
+							>
+								ИЛИ
+							</Typography>
+						</Divider>
+					</>
 				)}
-				<Typography variant="h4" gutterBottom>
-					{isLogin ? "Вход в аккаунт" : "Регистрация нового аккаунта"}
-				</Typography>
-
-				<Stack
-					direction="row"
-					justifyContent="space-between"
-					spacing={2}
-					sx={{ pt: 2.5 }}
-				>
-					<Button
-						fullWidth
-						type="button"
-						variant="outlined"
-						size="large"
-						color="inherit"
-						onClick={() => signIn("google")}
-						startIcon={<GoogleIcon />}
-					>
-						Google
-					</Button>
-					<Button
-						fullWidth
-						type="button"
-						variant="outlined"
-						size="large"
-						color="inherit"
-						onClick={() => signIn("facebook")}
-						startIcon={<FacebookIcon />}
-					>
-						Facebook
-					</Button>
-				</Stack>
-
-				<Stack display="flex" spacing={2} sx={{ p: 2.5 }}>
-					<Typography
-						variant="caption"
-						align="center"
-						sx={{ letterSpacing: 2, color: "text.secondary" }}
-					>
-						ИЛИ
-					</Typography>
-				</Stack>
 
 				{isLogin && !isReset && (
 					<MotionInView variants={varFadeIn}>

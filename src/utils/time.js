@@ -1,3 +1,6 @@
+import { format, getTime, formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale";
+
 export function getCurrentTime() {
 	return new Date().getTime();
 }
@@ -38,4 +41,8 @@ export function dayMonthYearDate(time) {
 		month: "2-digit",
 		year: "2-digit",
 	});
+}
+
+export function fDate(date) {
+	return format(new Date(date), "dd MMMM yyyy", { locale: ru });
 }

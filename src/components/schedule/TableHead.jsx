@@ -1,9 +1,17 @@
 // material
-import { TableRow, TableCell, TableHead } from "@mui/material";
+import { TableRow, TableCell, TableHead, styled } from "@mui/material";
 
 export default function Head() {
+	const TableHeadStyle = styled(TableHead)(({ theme }) => ({
+		"&::after": {
+			content: '" "',
+			display: "block",
+			height: "15px",
+		},
+	}));
+
 	return (
-		<TableHead>
+		<TableHeadStyle>
 			<TableRow>
 				<TableCell sx={{ minWidth: 100 }}></TableCell>
 				<TableCell sx={{ minWidth: 100 }}>Начало</TableCell>
@@ -14,6 +22,6 @@ export default function Head() {
 				{/*{user && <TableCell sx={{ minWidth: 100 }}>Запись</TableCell>}*/}
 				<TableCell />
 			</TableRow>
-		</TableHead>
+		</TableHeadStyle>
 	);
 }

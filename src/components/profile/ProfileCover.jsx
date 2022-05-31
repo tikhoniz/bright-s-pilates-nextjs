@@ -68,7 +68,7 @@ const SkeletonLoad = () => {
 
 const ProfileCover = () => {
 	const { user, isLoading, isError } = useUser();
-	const { name, cover, image } = user;
+	const { name, cover, image } = user || {};
 
 	return (
 		<>
