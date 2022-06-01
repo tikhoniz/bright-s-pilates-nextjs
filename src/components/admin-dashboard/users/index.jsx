@@ -38,7 +38,7 @@ const SkeletonLoad = () => {
 };
 
 export default function UsersList() {
-	const { users, isLoading, isError } = useUserList();
+	const { userList, isLoading, isError } = useUserList();
 
 	const { data, error } = useSWR(`/api/admin/orders`);
 
@@ -58,7 +58,7 @@ export default function UsersList() {
 						<TableBody>
 							{isLoading && <SkeletonLoad />}
 							{data &&
-								users.map((user) => (
+								userList.map((user) => (
 									<UserRow key={user._id} user={user} orders={data} />
 								))}
 						</TableBody>

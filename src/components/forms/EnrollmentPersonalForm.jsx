@@ -114,7 +114,7 @@ export default function EnrollmentPersonalForm({ onClose, coach }) {
 		<FormikProvider value={formik}>
 			<Form autoComplete="off" noValidate onSubmit={handleSubmit}>
 				<MotionInView variants={varFadeIn}>
-					<Stack spacing={4}>
+					<Stack spacing={4} sx={{ my: 5, mx: { xs: 1, sm: 5 } }}>
 						<TextField
 							fullWidth
 							label="Имя"

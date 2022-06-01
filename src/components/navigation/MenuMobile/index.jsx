@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 // next
 import { useRouter } from "next/router";
 // material
-import { List, Drawer } from "@mui/material";
+import { List, Drawer, Box } from "@mui/material";
 import { MIconButton } from "../../@material-extend";
 // components
 import Scrollbar from "../../Scrollbar";
@@ -60,6 +60,19 @@ const MenuMobile = ({ navConfig, isOffset, isHome }) => {
 				ModalProps={{ keepMounted: true }}
 				PaperProps={{ sx: { pb: 5, width: 260 } }}
 			>
+				<Box
+					component="img"
+					alt="empty content"
+					src="/svg/logo-bp-full.svg"
+					sx={{
+						width: 44,
+						height: 44,
+						cursor: "pointer",
+						ml: { xs: 2, sm: 3 },
+						mb: 2,
+						mt: 1,
+					}}
+				/>
 				<Scrollbar>
 					<List disablePadding>
 						{menuList.map((link) => (

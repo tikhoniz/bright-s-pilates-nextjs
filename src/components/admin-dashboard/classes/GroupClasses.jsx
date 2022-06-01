@@ -46,12 +46,19 @@ const GroupClasses = () => {
 
 	const { user, isLoading, isError } = useUser();
 	const {
-		users,
+		userList,
 		isLoading: userIsLoading,
 		isError: userIsError,
-	} = useUserList();
+	} = useUserList({
+		refreshInterval: 30000,
+		revalidateIfStale: true,
+	});
 
-	const { data, error } = useSWR(`/api/admin/groups`);
+	const { data, error } = useSWR(`/api/admin/groups`, {
+		refreshInterval: 30000,
+		revalidateIfStale: true,
+	});
+
 	const groupClassList = data ?? [];
 
 	const theme = useTheme();
@@ -110,7 +117,7 @@ const GroupClasses = () => {
 									<UpcomingClass
 										key={row._id}
 										cls={row}
-										users={users}
+										users={userList}
 										onUpdateClass={setUpdatableClass}
 									/>
 								);
@@ -159,7 +166,7 @@ const GroupClasses = () => {
 														<CompletedClass
 															key={row._id}
 															cls={row}
-															users={users}
+															users={userList}
 														/>
 													);
 												})}

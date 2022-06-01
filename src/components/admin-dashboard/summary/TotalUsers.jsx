@@ -44,7 +44,7 @@ const RadioGroupStyle = styled(RadioGroup)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 const TotalUsers = () => {
-	const { users, isLoading, isError } = useUserList();
+	const { userList, isLoading, isError } = useUserList();
 
 	const [period, setPeriod] = useState(30);
 	const theme = useTheme();
@@ -55,7 +55,7 @@ const TotalUsers = () => {
 		setPeriod(Number(event.target.value));
 	};
 
-	const quantity = users.reduce((acc, user) => {
+	const quantity = userList.reduce((acc, user) => {
 		const userCreated = new Date(user.createdAt).getTime();
 		const time = period * 24 * 60 * 60 * 1000;
 
@@ -64,7 +64,7 @@ const TotalUsers = () => {
 		return acc;
 	}, 0);
 
-	const percentIncrease = (quantity * 100) / users?.length;
+	const percentIncrease = (quantity * 100) / userList?.length;
 
 	return (
 		<Card
@@ -78,7 +78,7 @@ const TotalUsers = () => {
 		>
 			<Box sx={{ flexGrow: 1 }}>
 				<Typography variant="h4">
-					Пользователей: {fNumber(users?.length)}
+					Пользователей: {fNumber(userList?.length)}
 				</Typography>
 				<Stack
 					direction="row"

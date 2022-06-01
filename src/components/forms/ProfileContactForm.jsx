@@ -102,7 +102,7 @@ export default function ProfileContactForm() {
 
 	return (
 		<MotionInView variants={varFadeIn}>
-			<Card>
+			<Card sx={{ p: 3 }}>
 				<CardHeader
 					title="Напишите нам! "
 					subheader="Мы будем рады услышать Ваши предложения, вопросы или

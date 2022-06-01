@@ -22,7 +22,7 @@ import ModalBasic from "../../modal/ModalBasic";
 const MessageList = () => {
 	const [message, setMessage] = useState({});
 
-	const { users, isLoading, isError } = useUserList();
+	const { userList, isLoading, isError } = useUserList();
 	const { data, error } = useSWR(`/api/admin/messages`);
 
 	const messages = data ?? [];
@@ -50,7 +50,7 @@ const MessageList = () => {
 									<MessagesRow
 										key={row._id}
 										userMessage={row}
-										users={users}
+										users={userList}
 										onReplyMessage={replyToMessage}
 									/>
 								))}

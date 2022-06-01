@@ -94,7 +94,7 @@ export default function GeneralContactForm({ onCloseModalHandler }) {
 		<FormikProvider value={formik}>
 			<Form autoComplete="off" noValidate onSubmit={handleSubmit}>
 				<MotionInView variants={varFadeIn}>
-					<Stack spacing={5}>
+					<Stack spacing={5} sx={{ my: 5, mx: { xs: 1, sm: 5 } }}>
 						<Typography
 							variant="h6"
 							sx={{ textAlign: { xs: "center", md: "left" } }}
