@@ -100,7 +100,6 @@ export default function RegisterForm({ router, isVerified }) {
 
 				router.push("/");
 			} catch (error) {
-				console.error(error);
 				if (isMountedRef.current) {
 					setErrors({ afterSubmit: error.message });
 					setSubmitting(false);

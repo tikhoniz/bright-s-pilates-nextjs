@@ -129,3 +129,27 @@ export const deleteVideo = async (videoId) => {
 
 	return response;
 };
+
+//* @desc  Fetch Youtube videos
+//* @route  POST /api/youtubeVideos
+//* @access All
+export const fetchYoutubeVideos = async () => {
+	const response = await fetch(`${process.env.localhost}/api/youtubeVideos`, {
+		method: "GET",
+	})
+		.then(async (response) => {
+			if (response.ok) {
+				return response.json();
+			}
+			//если ответ не response.ok
+			const data = await response.json();
+			throw new Error(
+				data.message || "Something went wrong! [API function createWorkout]"
+			);
+		})
+		.catch((error) => {
+			return error;
+		});
+
+	return response;
+};

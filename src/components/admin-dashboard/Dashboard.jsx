@@ -7,14 +7,14 @@ import UsersList from "./users";
 import Summary from "./summary";
 import MessageList from "./messages";
 import GroupClasses from "./classes/GroupClasses";
+import VideoList from "./videos";
+import NewPost from "./posts";
 // icons
 import { Icon } from "@iconify/react";
 import roundAccountBox from "@iconify/icons-ic/sharp-insert-chart-outlined";
 import outlineHistoryEdu from "@iconify/icons-ic/outline-video-camera-front";
 import BaselineSelfImprovement from "@iconify/icons-ic/baseline-self-improvement";
 import BaselineForwardToInbox from "@iconify/icons-ic/baseline-forward-to-inbox";
-import NewPost from "./posts";
-import VideoList from "./videos";
 
 // ----------------------------------------------------------------------
 

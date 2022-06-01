@@ -87,17 +87,6 @@ const Authentication = (props) => {
 							</Button>
 						</Stack>
 
-						{/*<Stack display="flex" spacing={2} sx={{ p: 2.5 }}>
-							<Typography
-								paragraph
-								variant="h6"
-								align="center"
-								sx={{ color: "text.secondary" }}
-							>
-								или
-							</Typography>
-						</Stack>*/}
-
 						<Divider
 							sx={{
 								my: 4,

@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { Stack } from "@mui/material";
 // components
 import MenuDesktopItem from "./MenuDesktopItem";
-import AccountPopover from "../../account/AccountPopover";
 
 // ----------------------------------------------------------------------
 
@@ -54,9 +53,6 @@ const MenuDesktop = ({ isOffset, isHome, isTerms, navConfig }) => {
 					isTerms={isTerms}
 				/>
 			)}
-
-			{/*аватар с выпадающим меню*/}
-			{/*{status === "authenticated" && <AccountPopover />}*/}
 		</Stack>
 	);
 };

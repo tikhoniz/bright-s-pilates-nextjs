@@ -41,6 +41,7 @@ export default function VideoList() {
 	const [video, setVideo] = useState(null);
 
 	const { data, error } = useSWR(`/api/youtubeVideos`);
+
 	const isLoading = !data && !error;
 
 	const createVideoHandler = (video) => {
@@ -105,9 +106,8 @@ export default function VideoList() {
 						<Heads />
 						<TableBody>
 							{isLoading && <SkeletonLoad />}
-							{data &&
-								!isLoading &&
-								data.map((video) => (
+							{!isLoading &&
+								data.youtubeVideos.map((video) => (
 									<VideoRow
 										key={video._id}
 										video={video}

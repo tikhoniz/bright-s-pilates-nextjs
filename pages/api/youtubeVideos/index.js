@@ -26,7 +26,7 @@ async function handler(req, res) {
 				startTime: 1, //отсортирует сначала ближайшие к началу
 			});
 			//res.status(200).json({ groupClasses: documents, ok: 1 });
-			res.status(200).json(documents);
+			res.status(200).json({ youtubeVideos: documents, ok: 1 });
 		} catch (error) {
 			res.status(500).json({ message: error.message });
 			return;

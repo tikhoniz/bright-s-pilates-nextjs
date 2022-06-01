@@ -116,7 +116,7 @@ export default function MainNavbar() {
 					{/* рассталкивает меню и логотип */}
 					<Box sx={{ flexGrow: { xs: 1, md: 0 } }} />
 
-					<Box sx={{ position: "relative" }}>
+					<Box sx={{ position: "relative", minWidth: 50 }}>
 						{status === "authenticated" && <AccountPopover />}
 					</Box>
 				</Container>

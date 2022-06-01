@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 // components
 import Page from "../../src/components/Page";
 import VideoList from "../../src/components/video";
-import { connectDatabase, getDocuments } from "../../src/helpers/db";
+import { fetchYoutubeVideos } from "../../src/helpers/api/api-youtubeVideos";
 
 //-------------------------------------------------
 const RootStyle = styled(Page)(({ theme }) => ({
@@ -36,23 +36,21 @@ const VideosPage = ({ videoList }) => {
 
 export default VideosPage;
 
-export async function getServerSideProps(context) {
-	const client = await connectDatabase();
+export async function getServerSideProps() {
+	const response = await fetchYoutubeVideos();
 
-	const data = await getDocuments(client, "youtubeVideos", {
-		startTime: 1,
-	});
-	const youtubeVideos = JSON.parse(JSON.stringify(data));
-
-	if (!youtubeVideos) {
+	if (!response.ok) {
+		console.log(response.message);
 		return {
-			notFound: true,
+			props: {
+				videoList: [],
+			},
 		};
 	}
 
 	return {
 		props: {
-			videoList: youtubeVideos,
+			videoList: response.youtubeVideos,
 		},
 	};
 }
