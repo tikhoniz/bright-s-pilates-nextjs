@@ -9,21 +9,20 @@ async function handler(req, res) {
 		return;
 	}
 
-	// Получает класс по ID пользователя
+	// Получает класс по ID
 	if (req.method === "GET") {
 		try {
 			const cls = await getDocument(client, "groups", req.query.slug);
-			delete cls.title;
 			delete cls.creator;
 			delete cls.createdAt;
 			delete cls.updatedAt;
-			delete cls.participants;
 
 			res.status(200).json(cls);
 		} catch (error) {
 			res.status(500).json({ message: error.message });
 		}
 	}
+
 	client.close();
 }
 

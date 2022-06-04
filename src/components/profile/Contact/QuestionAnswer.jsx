@@ -1,16 +1,10 @@
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 // material
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	Typography,
-	Box,
-	Skeleton,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 // components
 import QuestionAnswerList from "./QuestionAnswerList";
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
 
 export default function QuestionAnswer() {
 	const { data: session } = useSession();
@@ -26,16 +20,6 @@ export default function QuestionAnswer() {
 
 	const isLoading = !error && !data;
 
-	const SkeletonLoad = () => {
-		return (
-			<Box sx={{ mx: 1 }}>
-				<Skeleton variant="text" height={50} />
-				<Skeleton variant="text" height={50} />
-				<Skeleton variant="text" height={50} />
-			</Box>
-		);
-	};
-
 	return (
 		<Card>
 			<CardHeader title="Сообщения:" />
@@ -46,7 +30,7 @@ export default function QuestionAnswer() {
 					</Typography>
 				)}
 
-				{isLoading && <SkeletonLoad />}
+				{isLoading && <SkeletonLoad num={3} variant="text" height={50} />}
 
 				{data && <QuestionAnswerList messages={data} />}
 			</CardContent>

@@ -18,6 +18,7 @@ import MessageForm from "./MessageForm";
 import MessagesRow from "./MessagesRow";
 import MessagesHeads from "./MessagesHeads";
 import ModalBasic from "../../modal/ModalBasic";
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
 
 const MessageList = () => {
 	const [message, setMessage] = useState({});
@@ -42,7 +43,9 @@ const MessageList = () => {
 							{isLoading ||
 								(!data && (
 									<TableRow>
-										<TableCell>Загрузка...</TableCell>
+										<TableCell colSpan={"100%"}>
+											<SkeletonLoad num={5} variant="text" height={100} />
+										</TableCell>
 									</TableRow>
 								))}
 							{data &&

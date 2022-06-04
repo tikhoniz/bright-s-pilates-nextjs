@@ -17,25 +17,10 @@ import Heads from "./Heads";
 import VideoRow from "./VideoRow";
 import Scrollbar from "../../Scrollbar";
 import VideoUpdateForm from "./VideoUpdateForm";
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
 //icons
 import { Icon } from "@iconify/react";
 import BaselineGroups from "@iconify/icons-ic/baseline-groups";
-
-const SkeletonLoad = () => {
-	return (
-		<TableRow>
-			<TableCell colSpan={"100%"}>
-				<Box sx={{ mx: 1 }}>
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-				</Box>
-			</TableCell>
-		</TableRow>
-	);
-};
 
 export default function VideoList() {
 	const [video, setVideo] = useState(null);
@@ -105,9 +90,15 @@ export default function VideoList() {
 					<Table>
 						<Heads />
 						<TableBody>
-							{isLoading && <SkeletonLoad />}
-							{!isLoading &&
-								data.youtubeVideos.map((video) => (
+							{isLoading && (
+								<TableRow>
+									<TableCell colSpan={"100%"}>
+										<SkeletonLoad num={5} variant="text" height={100} />
+									</TableCell>
+								</TableRow>
+							)}
+							{data &&
+								data?.youtubeVideos.map((video) => (
 									<VideoRow
 										key={video._id}
 										video={video}

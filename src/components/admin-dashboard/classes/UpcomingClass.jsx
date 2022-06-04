@@ -71,7 +71,7 @@ export default function UpcomingClass({ cls, users, onUpdateClass }) {
 			setSubmitting(false);
 		}
 
-		mutate(`/api/admin/groups`);
+		mutate(`/api/classes/admin`);
 	}
 
 	return (
@@ -132,7 +132,7 @@ export default function UpcomingClass({ cls, users, onUpdateClass }) {
 				</TableCell>
 			</MHidden>
 
-			<TableCell>
+			<TableCell align="center">
 				<ModalBasic open={open} onClose={() => setOpen(false)}>
 					{participants.map((item) => (
 						<MenuItem key={item.email} value={item.email}>
@@ -141,7 +141,13 @@ export default function UpcomingClass({ cls, users, onUpdateClass }) {
 					))}
 				</ModalBasic>
 
-				<Button onClick={() => setOpen(true)}> {participants.length}</Button>
+				{participants.length > 0 ? (
+					<Button onClick={() => setOpen(true)}>{participants.length}</Button>
+				) : (
+					<Typography variant="subtitle1" sx={{ color: "text.secondary" }}>
+						0
+					</Typography>
+				)}
 			</TableCell>
 
 			<TableCell>

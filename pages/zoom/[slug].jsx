@@ -10,9 +10,7 @@ import Zoom from "../../src/components/zoom/Zoom";
 
 const ZoomPage = ({ user }) => {
 	const router = useRouter();
-	const { cls, isLoading, isError, isValidating } = useGroupClass(
-		router?.query?.slug
-	);
+	const { cls, isLoading, isError } = useGroupClass(router?.query?.slug);
 
 	return (
 		<>
@@ -31,7 +29,7 @@ const ZoomPage = ({ user }) => {
 				/>
 			</Head>
 			{isError && "Ошибка конференции Zoom"}
-			{!isLoading && !isError && <Zoom user={user} onlineClass={cls} />};
+			{!isLoading && <Zoom user={user} onlineClass={cls} />};
 		</>
 	);
 };

@@ -13,12 +13,12 @@ import videoOutline from "@iconify/icons-eva/video-outline";
 import useGroupClass from "../../../hooks/useGroupClass";
 
 const JoinButton = ({ sx, classId, startTime, router, isZoomApp }) => {
-	const { cls, isLoading, isError, isValidating } = useGroupClass(classId);
+	const { cls, isLoading, isError } = useGroupClass(classId);
 
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-	const [mins, setMins] = useState(null);
-	const [secs, setSecs] = useState(null);
+	const [minutes, setMins] = useState(null);
+	const [seconds, setSecs] = useState(null);
 	const [joinToClass, setJoinToClass] = useState(false);
 	const [isSubmitting, setSubmitting] = useState(false);
 
@@ -33,10 +33,10 @@ const JoinButton = ({ sx, classId, startTime, router, isZoomApp }) => {
 			// если время до начала тренировки больше чем 5мин показывает
 			// таймер обратного отсчета, если меньше, то "присоединится"
 			if (t >= 5 * 60 * 1000) {
-				let mins = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-				let secs = Math.floor((t % (1000 * 60)) / 1000);
-				setMins(("0" + mins).slice(-2));
-				setSecs(("0" + secs).slice(-2));
+				let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+				let seconds = Math.floor((t % (1000 * 60)) / 1000);
+				setMins(("0" + minutes).slice(-2));
+				setSecs(("0" + seconds).slice(-2));
 			} else {
 				setJoinToClass(true);
 				return () => {
@@ -107,7 +107,7 @@ const JoinButton = ({ sx, classId, startTime, router, isZoomApp }) => {
 						width: "100%",
 					}}
 				>
-					{secs && (
+					{seconds && (
 						<Stack direction={{ xs: "column", md: "row" }} alignItems="center">
 							<Typography
 								variant="body2"
@@ -122,7 +122,7 @@ const JoinButton = ({ sx, classId, startTime, router, isZoomApp }) => {
 								variant="subtitle2"
 								sx={{ color: "text.secondary", minWidth: 45 }}
 							>
-								<span>{mins || "__"}</span>:<span>{secs || "__"}</span>
+								<span>{minutes || "__"}</span>:<span>{seconds || "__"}</span>
 							</Typography>
 						</Stack>
 					)}

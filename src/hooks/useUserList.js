@@ -9,8 +9,10 @@ function useUserList(options) {
 		options
 	);
 
+	const isLoadin = !error && !data;
+
 	return {
-		userList: data ?? [],
+		userList: data,
 		isLoading: !error && !data,
 		isError: error,
 	};

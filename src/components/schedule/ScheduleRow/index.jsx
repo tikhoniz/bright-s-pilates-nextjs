@@ -7,7 +7,7 @@ import renderMessage from "../../../helpers/renderMessage";
 import { getCurrentTime, getEventTime } from "../../../utils/time";
 import {
 	cancelUserGroup,
-	registerUserGroup,
+	registersForClass,
 } from "../../../helpers/api/api-classes";
 // icons
 import MobileScreenRow from "./MobileScreenRow";
@@ -18,7 +18,7 @@ const TIME_UNTIL_START_TIMER = 86400000;
 //---------------------------------------------------------------------------------
 
 export default function ScheduleRow({ cls, user, isDesktop, router }) {
-	const { _id: classId, startTime, freeAccess } = cls;
+	const { _id: classId, startTime } = cls;
 	const { _id: userId, email } = user;
 
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -35,7 +35,9 @@ export default function ScheduleRow({ cls, user, isDesktop, router }) {
 
 	// проверяет запись на тренировку
 	useEffect(() => {
-		user?.groupList?.some((cls) => cls === classId) && setInvolved(true);
+		const isParticipant = user?.groupList?.some((cls) => cls === classId);
+
+		if (isParticipant) setInvolved(true);
 	}, [user?.groupList]);
 
 	// если время тренировки не истекло устанавливает таймер
@@ -61,23 +63,25 @@ export default function ScheduleRow({ cls, user, isDesktop, router }) {
 	}, [isExpired, isInvolved]);
 
 	// записывает на тренировку
-	const registerForClassHandler = async () => {
+	const registersClassHandler = async () => {
 		setSubmitting(true);
 
-		const response = await registerUserGroup(userId, classId);
+		const response = await registersForClass(userId, classId);
 
 		if (!response.ok) {
 			enqueueSnackbar(renderMessage(response.message, closeSnackbar), {
 				autoHideDuration: 4000,
 				variant: "warning",
 			});
+
 			response.message === "alreadyParticipant" && setInvolved(true);
+
 			setSubmitting(false);
 			return;
 		}
 
 		mutate(`/api/users/${email}`);
-		mutate(`/api/classes/groups/user/${email}`);
+		mutate(`/api/classes/user/${email}`);
 
 		setInvolved(true);
 		setSubmitting(false);
@@ -103,7 +107,7 @@ export default function ScheduleRow({ cls, user, isDesktop, router }) {
 			return;
 		}
 
-		mutate(`/api/classes/groups/user/${email}`);
+		mutate(`/api/classes/user/${email}`);
 		mutate(`/api/users/${email}`);
 
 		setInvolved(false);
@@ -119,7 +123,7 @@ export default function ScheduleRow({ cls, user, isDesktop, router }) {
 				isExpired={isExpired}
 				isInvolved={isInvolved}
 				isSubmitting={isSubmitting}
-				registerForClassHandler={registerForClassHandler}
+				registersClassHandler={registersClassHandler}
 				cancelClassHandler={cancelClassHandler}
 			/>
 		);
@@ -132,28 +136,9 @@ export default function ScheduleRow({ cls, user, isDesktop, router }) {
 				isExpired={isExpired}
 				isInvolved={isInvolved}
 				isSubmitting={isSubmitting}
-				registerForClassHandler={registerForClassHandler}
+				registersClassHandler={registersClassHandler}
 				cancelClassHandler={cancelClassHandler}
 			/>
 		);
 	}
 }
-
-// Online Class
-//accessCode: "0000"
-//avatar: "/images/diana-coach-photo.jpg"
-//coach: "Диана"
-//conferenceId: "00000000"
-//createdAt: "2021-10-29T12:39:35.467Z"
-//creator: "brightspilates@gmail.com"
-//duration: "60"
-//freeAccess: false
-//invitationLink: "add_URL"
-//level: "beginer"
-//participants: []
-//startTime: "2021-10-30T12:39:35.000Z"
-//title: "Sample name"
-//type: "group"
-//updatedAt: "2021-10-29T12:39:51.262Z"
-//urlCoach: "/coaches/diana-head-coach"
-//_id: "617beb87b769a54ca8d0d5c5"

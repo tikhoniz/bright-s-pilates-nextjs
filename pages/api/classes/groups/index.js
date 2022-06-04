@@ -1,7 +1,4 @@
-import {
-	connectDatabase,
-	getScheduleClasses,
-} from "../../../../src/helpers/db";
+import { connectDatabase, getGroupClasses } from "../../../../src/helpers/db";
 
 async function handler(req, res) {
 	let client;
@@ -12,10 +9,11 @@ async function handler(req, res) {
 		return;
 	}
 
+	// Получает классы для расписания
 	try {
-		const upcomingGroups = await getScheduleClasses(client, "groups");
+		const classes = await getGroupClasses(client, "groups");
 
-		res.status(200).json(upcomingGroups);
+		res.status(200).json(classes);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}

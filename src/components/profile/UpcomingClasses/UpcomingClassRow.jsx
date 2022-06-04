@@ -111,7 +111,7 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 			return;
 		}
 
-		mutate(`/api/classes/groups/user/${userEmail}`);
+		mutate(`/api/classes/user/${userEmail}`);
 		mutate(`/api/users/${userEmail}`);
 	}
 

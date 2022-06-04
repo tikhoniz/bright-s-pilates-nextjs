@@ -1,8 +1,8 @@
 import {
 	connectDatabase,
-	getDocumentsFromArray,
 	getUserByEmail,
-} from "../../../../../src/helpers/db";
+	getUserClasses,
+} from "../../../../src/helpers/db";
 
 async function handler(req, res) {
 	let client;
@@ -10,8 +10,7 @@ async function handler(req, res) {
 		client = await connectDatabase();
 	} catch (error) {
 		res.status(500).json({
-			message:
-				"Connected to the database failed [/api/classes/groups/user/[slug]]",
+			message: "Connected to the database failed [/api/classes/user/[slug]]",
 		});
 		return;
 	}
@@ -21,23 +20,9 @@ async function handler(req, res) {
 		try {
 			const user = await getUserByEmail(client, "users", req.query.slug);
 
-			const userClasses = await getDocumentsFromArray(
-				client,
-				"groups",
-				user.groupList
-			);
+			const classes = await getUserClasses(client, user.groupList);
 
-			userClasses.forEach((it) => {
-				delete it.invitationLink;
-				delete it.conferenceId;
-				delete it.accessCode;
-				delete it.creator;
-				delete it.createdAt;
-				delete it.updatedAt;
-				delete it.participants;
-			});
-
-			res.status(200).json(userClasses);
+			res.status(200).json(classes);
 		} catch (error) {
 			res.status(500).json({ message: error.message });
 		}

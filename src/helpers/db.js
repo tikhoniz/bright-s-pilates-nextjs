@@ -121,9 +121,34 @@ export async function updateDocument(client, collection, id, updatedDocument) {
 	return result;
 }
 
+//* USER *//
+
+export async function getUserClasses(client, arr) {
+	const db = client.db();
+	//получаем
+	const array = await db
+		.collection("groups")
+		.find(
+			{ _id: { $in: arr } },
+			{
+				projection: {
+					invitationLink: 0,
+					conferenceId: 0,
+					accessCode: 0,
+					creator: 0,
+					createdAt: 0,
+					updatedAt: 0,
+				},
+			}
+		)
+		.toArray();
+
+	return array;
+}
+
 //* SCHEDULE *//
 // получает список будущих классов без определенных полей
-export async function getScheduleClasses(client, collection) {
+export async function getGroupClasses(client, collection) {
 	// Получает список предстоящих групповых классов
 	// время начала которых не позже текущего времени
 	// минус [ delay_to_remove_from_schedule ]
@@ -148,7 +173,7 @@ export async function getScheduleClasses(client, collection) {
 					creator: 0,
 					createdAt: 0,
 					updatedAt: 0,
-					participants: 0,
+					//participants: 0,
 				},
 			}
 		)

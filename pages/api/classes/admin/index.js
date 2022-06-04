@@ -1,16 +1,13 @@
-import { getSession } from "next-auth/react";
 import {
 	getDocuments,
 	connectDatabase,
 	insertDocument,
 } from "../../../../src/helpers/db";
+// hooks
+import useAdmin from "../../../../src/hooks/useAdmin";
 
 async function handler(req, res) {
-	const session = await getSession({ req });
-
-	const isAdmin =
-		session?.user.email === process.env.admin ||
-		session?.user.email === process.env.dev;
+	const isAdmin = await useAdmin(req);
 
 	if (!isAdmin) {
 		res.status(500).json("Access is denied");
@@ -57,7 +54,6 @@ async function handler(req, res) {
 			urlCoach: "/coaches/diana-head-coach",
 			startTime: currentDate,
 			creator: req.body.userEmail,
-			participants: [],
 			createdAt: currentDate,
 			updatedAt: currentDate,
 		};
@@ -70,7 +66,6 @@ async function handler(req, res) {
 		}
 	}
 
-	// close connect to database
 	client.close();
 }
 

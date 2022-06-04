@@ -1,8 +1,6 @@
-import { getSession } from "next-auth/react";
 import {
 	connectDatabase,
 	getDocuments,
-	getScheduleClasses,
 	insertDocument,
 } from "../../../src/helpers/db";
 import useAdmin from "../../../src/hooks/useAdmin";

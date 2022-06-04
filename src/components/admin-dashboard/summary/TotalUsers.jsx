@@ -55,7 +55,7 @@ const TotalUsers = () => {
 		setPeriod(Number(event.target.value));
 	};
 
-	const quantity = userList.reduce((acc, user) => {
+	const quantity = userList?.reduce((acc, user) => {
 		const userCreated = new Date(user.createdAt).getTime();
 		const time = period * 24 * 60 * 60 * 1000;
 

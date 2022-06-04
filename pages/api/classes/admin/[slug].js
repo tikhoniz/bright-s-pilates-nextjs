@@ -1,24 +1,12 @@
-import { getSession } from "next-auth/react";
 import {
 	connectDatabase,
 	deleteDocument,
 	getDocument,
 	updateDocument,
 } from "../../../../src/helpers/db";
+import useAdmin from "../../../../src/hooks/useAdmin";
 
 async function handler(req, res) {
-	const session = await getSession({ req });
-	const classId = req.query.slug;
-
-	const isAdmin =
-		session?.user.email === process.env.admin ||
-		session?.user.email === process.env.dev;
-
-	if (!isAdmin) {
-		res.status(500).json("Access is denied");
-		return;
-	}
-
 	let client;
 	try {
 		client = await connectDatabase();
@@ -27,12 +15,20 @@ async function handler(req, res) {
 		return;
 	}
 
+	const isAdmin = await useAdmin(req);
+
+	if (!isAdmin) {
+		res.status(500).json("Access is denied");
+		return;
+	}
+
 	// Обновляет онлайн класс по ID
+	// Admin
 	if (req.method === "PATCH") {
 		try {
-			const document = await getDocument(client, "groups", classId);
+			const document = await getDocument(client, "groups", req.query.slug);
 			// приведение id mongo  к строке
-			if (document._id.toString() === classId) {
+			if (document._id.toString() === req.query.slug) {
 				document.title = req.body.title || document.title;
 				document.invitationLink =
 					req.body.invitationLink || document.invitationLink;
@@ -46,7 +42,12 @@ async function handler(req, res) {
 				document.updatedAt = new Date();
 			}
 
-			const result = await updateDocument(client, "groups", classId, document);
+			const result = await updateDocument(
+				client,
+				"groups",
+				req.query.slug,
+				document
+			);
 
 			res.status(200).json(result);
 		} catch (error) {
@@ -55,16 +56,16 @@ async function handler(req, res) {
 	}
 
 	// Удаляет онлайн класс по ID
+	// Admin
 	if (req.method === "DELETE") {
 		try {
-			const { result } = await deleteDocument(client, "groups", classId);
+			const { result } = await deleteDocument(client, "groups", req.query.slug);
 
 			res.status(200).json(result);
 		} catch (error) {
 			res.status(500).json({ message: "Deleting class failed" });
 		}
 	}
-	// close connect to database
 	client.close();
 }
 

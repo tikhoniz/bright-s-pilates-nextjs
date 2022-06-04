@@ -196,71 +196,69 @@ const VideoUpdateForm = ({ video, onClose }) => {
 	);
 
 	return (
-		<FormikProvider value={formik}>
-			<Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-				<MotionInView variants={varFadeIn}>
-					<Grid container spacing={3}>
-						<Grid item xs={12} md={6} sx={{ marginLeft: "auto" }}>
-							<Stack spacing={3}>
-								{/* Название видео */}
-								<TextField
-									fullWidth
-									{...getFieldProps("title")}
-									type="text"
-									label="Название"
-									error={Boolean(touched.title && errors.title)}
-									helperText={touched.title && errors.title}
-								/>
-								{/* Описание видео */}
-								<TextField
-									fullWidth
-									{...getFieldProps("description")}
-									type="text"
-									label="Описание ролика"
-									error={Boolean(touched.title && errors.title)}
-									helperText={touched.title && errors.title}
-								/>
-								{/* ID видео из видеохостинга Youtube */}
-								<TextField
-									fullWidth
-									{...getFieldProps("youtubeId")}
-									type="text"
-									label="ID видео на YouTube"
-									error={Boolean(touched.title && errors.title)}
-									helperText={touched.title && errors.title}
-								/>
+		<Card sx={{ p: 3, maxWidth: 900, m: "0 auto 100px " }}>
+			<FormikProvider value={formik}>
+				<Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+					<MotionInView variants={varFadeIn}>
+						<Stack spacing={3}>
+							{/* Название видео */}
+							<TextField
+								fullWidth
+								{...getFieldProps("title")}
+								type="text"
+								label="Название"
+								error={Boolean(touched.title && errors.title)}
+								helperText={touched.title && errors.title}
+							/>
+							{/* Описание видео */}
+							<TextField
+								fullWidth
+								{...getFieldProps("description")}
+								type="text"
+								label="Описание ролика"
+								error={Boolean(touched.title && errors.title)}
+								helperText={touched.title && errors.title}
+							/>
+							{/* ID видео из видеохостинга Youtube */}
+							<TextField
+								fullWidth
+								{...getFieldProps("youtubeId")}
+								type="text"
+								label="ID видео на YouTube"
+								error={Boolean(touched.title && errors.title)}
+								helperText={touched.title && errors.title}
+							/>
 
-								<div>
-									<LabelStyle>Обложка</LabelStyle>
+							<div>
+								<LabelStyle>Обложка</LabelStyle>
 
-									<UploadSingleFile
-										maxSize={3145728}
-										accept="image/*"
-										file={values.cover}
-										onDrop={handleDrop}
-										error={Boolean(touched.cover && errors.cover)}
-									/>
-									{touched.cover && errors.cover && (
-										<FormHelperText error sx={{ px: 2 }}>
-											{touched.cover && errors.cover}
-										</FormHelperText>
-									)}
-								</div>
+								<UploadSingleFile
+									maxSize={3145728}
+									accept="image/*"
+									file={values.cover}
+									onDrop={handleDrop}
+									error={Boolean(touched.cover && errors.cover)}
+								/>
+								{touched.cover && errors.cover && (
+									<FormHelperText error sx={{ px: 2 }}>
+										{touched.cover && errors.cover}
+									</FormHelperText>
+								)}
+							</div>
 
-								<LoadingButton
-									size="large"
-									type="submit"
-									variant="contained"
-									loading={isSubmitting}
-								>
-									Сохранить
-								</LoadingButton>
-							</Stack>
-						</Grid>
-					</Grid>
-				</MotionInView>
-			</Form>
-		</FormikProvider>
+							<LoadingButton
+								size="large"
+								type="submit"
+								variant="contained"
+								loading={isSubmitting}
+							>
+								Сохранить
+							</LoadingButton>
+						</Stack>
+					</MotionInView>
+				</Form>
+			</FormikProvider>
+		</Card>
 	);
 };
 

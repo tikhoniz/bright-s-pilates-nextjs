@@ -31,7 +31,7 @@ async function handler(req, res) {
 			urlCoach: "/coaches/diana-head-coach",
 			startTime: currentDate,
 			creator: req.body.userEmail,
-			participants: [],
+			//participants: [],
 			createdAt: currentDate,
 			updatedAt: currentDate,
 		};

@@ -34,7 +34,7 @@ const MobileScreenRow = ({
 	isExpired,
 	isInvolved,
 	isSubmitting,
-	registerForClassHandler,
+	registersClassHandler,
 	cancelClassHandler,
 }) => {
 	const {
@@ -150,9 +150,7 @@ const MobileScreenRow = ({
 					{user.email && !isExpired && (
 						<ActionButton
 							loading={isSubmitting}
-							onClick={
-								isInvolved ? cancelClassHandler : registerForClassHandler
-							}
+							onClick={isInvolved ? cancelClassHandler : registersClassHandler}
 							label={isInvolved ? "Отменить" : "Запись"}
 							variant={isInvolved ? "contained" : "outlined"}
 							sx={{

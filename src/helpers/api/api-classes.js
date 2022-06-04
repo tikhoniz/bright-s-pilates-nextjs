@@ -2,7 +2,7 @@
 //* @route  POST /api/classes
 //* @access Admin
 export const createGroupClass = async (userEmail) => {
-	const response = await fetch(`/api/admin/groups`, {
+	const response = await fetch(`/api/classes/admin`, {
 		method: "POST",
 		body: JSON.stringify({ userEmail }),
 		headers: { "Content-Type": "application/json" },
@@ -11,7 +11,7 @@ export const createGroupClass = async (userEmail) => {
 			if (response.ok) {
 				return response.json();
 			}
-			//если ответ не response.ok
+
 			const data = await response.json();
 			throw new Error(
 				data.message || "Something went wrong! [API function createWorkout]"
@@ -30,7 +30,7 @@ export const createGroupClass = async (userEmail) => {
 export const updateGroupClass = async (cls) => {
 	const classId = cls.id;
 
-	const response = await fetch(`/api/admin/groups/${classId}`, {
+	const response = await fetch(`/api/classes/admin/${classId}`, {
 		method: "PATCH",
 		body: JSON.stringify(cls),
 		headers: { "Content-Type": "application/json" },
@@ -39,7 +39,7 @@ export const updateGroupClass = async (cls) => {
 			if (response.ok) {
 				return response.json();
 			}
-			//если ответ не response.ok
+
 			const data = await response.json();
 			throw new Error(
 				data.message || "Something went wrong! [API function createWorkout]"
@@ -55,14 +55,14 @@ export const updateGroupClass = async (cls) => {
 ////* @route  DELETE /api/classes/:slug
 ////* @access Admin
 export const deleteClass = async (classId) => {
-	const response = await fetch(`/api/admin/groups/${classId}`, {
+	const response = await fetch(`/api/classes/admin/${classId}`, {
 		method: "DELETE",
 	})
 		.then(async (response) => {
 			if (response.ok) {
 				return response.json();
 			}
-			//если ответ не response.ok
+
 			const data = await response.json();
 			throw new Error(
 				data.message || "Something went wrong! [API deleteWorkout]"
@@ -77,10 +77,10 @@ export const deleteClass = async (classId) => {
 };
 
 ////* @desc  Join the class
-////* @route  PATCH /api/classes/book/:slug
+////* @route  PATCH /api/classes/register/:slug
 ////* @access Private
-export const registerUserGroup = async (userId, classId) => {
-	const response = await fetch(`/api/classes/book/${classId}`, {
+export const registersForClass = async (userId, classId) => {
+	const response = await fetch(`/api/classes/user/register/${classId}`, {
 		method: "PATCH",
 		body: JSON.stringify({ userId }),
 		headers: { "Content-Type": "application/json" },
@@ -104,7 +104,7 @@ export const registerUserGroup = async (userId, classId) => {
 ////* @route  PATCH /api/classes/user/cancel/:slug
 ////* @access Private
 export const cancelUserGroup = async (userId, classId) => {
-	const response = await fetch(`/api/classes/cancel/${classId}`, {
+	const response = await fetch(`/api/classes/user/cancel/${classId}`, {
 		method: "PATCH",
 		body: JSON.stringify({ userId }),
 		headers: { "Content-Type": "application/json" },

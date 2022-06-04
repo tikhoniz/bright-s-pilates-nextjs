@@ -113,7 +113,7 @@ const ClassUpdateForm = ({ cls, onClose }) => {
 					return;
 				}
 
-				mutate(`/api/admin/groups`);
+				mutate(`/api/classes/admin`);
 				setSubmitting(false);
 				onClose();
 			} catch (error) {

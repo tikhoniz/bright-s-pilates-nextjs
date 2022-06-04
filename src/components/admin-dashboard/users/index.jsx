@@ -4,10 +4,8 @@ import useUserList from "../../../hooks/useUserList";
 // material
 import {
 	Card,
-	Box,
 	Table,
 	TableRow,
-	Skeleton,
 	TableCell,
 	TableBody,
 	CardHeader,
@@ -20,25 +18,10 @@ import Scrollbar from "../../Scrollbar";
 //icons
 import { Icon } from "@iconify/react";
 import BaselineGroups from "@iconify/icons-ic/baseline-groups";
-
-const SkeletonLoad = () => {
-	return (
-		<TableRow>
-			<TableCell colSpan={"100%"}>
-				<Box sx={{ mx: 1 }}>
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-				</Box>
-			</TableCell>
-		</TableRow>
-	);
-};
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
 
 export default function UsersList() {
-	const { userList, isLoading, isError } = useUserList();
+	const { userList, isError } = useUserList();
 
 	const { data, error } = useSWR(`/api/admin/orders`);
 
@@ -56,7 +39,14 @@ export default function UsersList() {
 					<Table>
 						<Heads />
 						<TableBody>
-							{isLoading && <SkeletonLoad />}
+							{!data && (
+								<TableRow>
+									<TableCell colSpan={"100%"}>
+										<SkeletonLoad num={5} variant="text" height={100} />
+									</TableCell>
+								</TableRow>
+							)}
+
 							{data &&
 								userList.map((user) => (
 									<UserRow key={user._id} user={user} orders={data} />

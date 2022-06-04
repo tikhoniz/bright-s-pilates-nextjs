@@ -44,8 +44,7 @@ const ModalBasic = ({ children, open, onClose }) => {
 		>
 			<Card
 				sx={{
-					//py: { xs: 6, md: 6 },
-					//px: { xs: 2, md: 4 },
+					py: { xs: 2, md: 4 },
 					position: "relative",
 					minWidth: "300px",
 					maxHeight: "100%",

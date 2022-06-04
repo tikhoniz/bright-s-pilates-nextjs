@@ -10,6 +10,8 @@ import {
 	TableContainer,
 	AccordionSummary,
 	AccordionDetails,
+	TableRow,
+	TableCell,
 } from "@mui/material";
 import { styled, useMediaQuery, useTheme } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
@@ -34,6 +36,7 @@ import arrowIosDownwardFill from "@iconify/icons-eva/arrow-ios-downward-fill";
 import useUser from "../../../hooks/useUser";
 import useSWR, { useSWRConfig } from "swr";
 import useUserList from "../../../hooks/useUserList";
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
 
 // ----------------------------------------------------------------------
 const style = { marginTop: 5 };
@@ -54,7 +57,7 @@ const GroupClasses = () => {
 		revalidateIfStale: true,
 	});
 
-	const { data, error } = useSWR(`/api/admin/groups`, {
+	const { data, error } = useSWR(`/api/classes/admin`, {
 		refreshInterval: 30000,
 		revalidateIfStale: true,
 	});
@@ -92,7 +95,7 @@ const GroupClasses = () => {
 
 		setUpdatableClass(response.ops[0]);
 
-		mutate(`/api/admin/groups`);
+		mutate(`/api/classes/admin`);
 	};
 
 	return (
@@ -112,6 +115,13 @@ const GroupClasses = () => {
 					<Table>
 						<Heads isMobile={isMobile} />
 						<TableBody>
+							{!data && (
+								<TableRow>
+									<TableCell colSpan={"100%"}>
+										<SkeletonLoad num={5} variant="text" height={100} />
+									</TableCell>
+								</TableRow>
+							)}
 							{upcomingClasses.map((row) => {
 								return (
 									<UpcomingClass

@@ -13,7 +13,7 @@ function useUserGroupClasses(options) {
 	//const userEmail = "user@user.com";
 
 	const { data, error, isValidating } = useSWR(
-		userEmail ? `/api/classes/groups/user/${userEmail}` : null,
+		userEmail ? `/api/classes/user/${userEmail}` : null,
 		options
 	);
 
