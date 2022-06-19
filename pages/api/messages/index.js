@@ -2,7 +2,13 @@ const sendgridMail = require("@sendgrid/mail");
 // emails
 import { sendUserMessage } from "../../../src/emails/message-emails";
 // utils
-import { connectDatabase, insertDocument } from "../../../src/helpers/db";
+import {
+	connectDatabase,
+	getDocuments,
+	insertDocument,
+} from "../../../src/helpers/db";
+// hooks
+import useAdmin from "../../../src/hooks/useAdmin";
 
 async function handler(req, res) {
 	let client;
@@ -12,7 +18,27 @@ async function handler(req, res) {
 		res.status(500).json({ message: "Connected to the database failed" });
 		return;
 	}
-	//  Создает новое сообщение
+
+	//* Получает все сообщения пользователей (admin)
+	if (req.method === "GET") {
+		const isAdmin = useAdmin(req);
+
+		if (!isAdmin) {
+			res.status(500).json("Access is denied");
+			return;
+		}
+
+		try {
+			const documents = await getDocuments(client, "messages", {
+				_id: -1, //отсортирует сначала новые
+			});
+			res.status(200).json(documents);
+		} catch (error) {
+			res.status(500).json({ message: error.message });
+		}
+	}
+
+	//* Создает новое сообщение
 	if (req.method === "POST") {
 		const {
 			coach,

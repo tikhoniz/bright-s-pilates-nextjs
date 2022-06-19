@@ -16,6 +16,8 @@ import headTeacherImage from "../public/images/head-teacher-image.jpg";
 const RootStyle = styled(Page)(({ theme }) => ({
 	position: "relative",
 	minHeight: "100%",
+	//backgroundColor: "#A69288",
+	//backgroundColor: "#cfbfb6",
 }));
 //-------------------------------------------------
 
@@ -29,8 +31,10 @@ const HomePage = () => {
 				"Oнлайн занятия из любой точки мира в студии Bright's Pilates"
 			</h1>
 
-			<AdOffers />
+			{/*<AdOffers />*/}
+
 			<Hero />
+
 			<BackgroundImage
 				image={mainImage}
 				alt="Женщина выполняет упражнение в большой светлой комнате"

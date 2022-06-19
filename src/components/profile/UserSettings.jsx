@@ -138,8 +138,13 @@ export default function UserSettings({ router }) {
 
 					return;
 				}
+
 				// добавить в объект пользователя превью
-				mutate({ ...user, image: { ...image, url: values.avatar.preview } });
+				if (values.avatar.preview) {
+					mutate({ ...user, image: { ...image, url: values.avatar.preview } });
+				} else {
+					mutate(user);
+				}
 
 				router.push("/profile");
 			} catch (error) {

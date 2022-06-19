@@ -92,7 +92,6 @@ export default function Schedule() {
 					sx={{ mb: 3 }}
 					avatar={<Icon icon={baselineCalendarToday} width={26} height={26} />}
 				/>
-
 				<Scrollbar>
 					<TableContainer sx={{ minHeight: 355 }}>
 						{!data && <SkeletonLoad />}

@@ -3,14 +3,11 @@ import {
 	getDocuments,
 	connectDatabase,
 	insertDocument,
-} from "../../../../src/helpers/db";
+} from "../../../src/helpers/db";
+import useAdmin from "../../../src/hooks/useAdmin";
 
 async function handler(req, res) {
-	const session = await getSession({ req });
-
-	const isAdmin =
-		session?.user.email === process.env.admin ||
-		session?.user.email === process.env.dev;
+	const isAdmin = useAdmin(req);
 
 	if (!isAdmin) {
 		res.status(500).json("Access is denied");

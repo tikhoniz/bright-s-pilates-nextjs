@@ -31,7 +31,9 @@ const GREY = {
 //* цвета для всей темы
 // основные
 const PRIMARY = {
-	main: "#51c5cf",
+	//main: "#51c5cf",
+	//main: "#947169", // с сайта
+	main: "#a18984", // diana
 	dark: "#00aebd",
 	darker: "#005249",
 	lighter: "#C8FACD",

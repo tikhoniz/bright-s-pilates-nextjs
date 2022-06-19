@@ -1,19 +1,20 @@
 import React, { useMemo, useState } from "react";
+import useSWR, { useSWRConfig } from "swr";
 // material
 import {
 	Box,
 	Grid,
 	Table,
+	TableRow,
+	TableCell,
 	TableBody,
 	Accordion,
 	Typography,
 	TableContainer,
 	AccordionSummary,
 	AccordionDetails,
-	TableRow,
-	TableCell,
 } from "@mui/material";
-import { styled, useMediaQuery, useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 // utils
 import { createGroupClass } from "../../../helpers/api/api-classes";
@@ -30,13 +31,13 @@ import CompletedClass from "./CompletedClass";
 import NewClassForm from "./ClassUpdateForm";
 import HeadsCompleted from "./HeadsCompleted";
 import ModalBasic from "../../modal/ModalBasic";
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
+// hooks
+import useUser from "../../../hooks/useUser";
+import useUserList from "../../../hooks/useUserList";
 //icons
 import { Icon } from "@iconify/react";
 import arrowIosDownwardFill from "@iconify/icons-eva/arrow-ios-downward-fill";
-import useUser from "../../../hooks/useUser";
-import useSWR, { useSWRConfig } from "swr";
-import useUserList from "../../../hooks/useUserList";
-import SkeletonLoad from "../../UI/skeleton/Skeleton";
 
 // ----------------------------------------------------------------------
 const style = { marginTop: 5 };
@@ -47,12 +48,9 @@ const GroupClasses = () => {
 	const [updatableClass, setUpdatableClass] = useState({});
 	const { mutate } = useSWRConfig();
 
-	const { user, isLoading, isError } = useUser();
-	const {
-		userList,
-		isLoading: userIsLoading,
-		isError: userIsError,
-	} = useUserList({
+	const { user } = useUser();
+
+	const { userList, isLoading, isError } = useUserList({
 		refreshInterval: 30000,
 		revalidateIfStale: true,
 	});
@@ -80,7 +78,7 @@ const GroupClasses = () => {
 	const createClassHandler = async () => {
 		setSubmitting(true);
 
-		const response = await createGroupClass(user.email);
+		const response = await createGroupClass(user?.email);
 
 		if (!response.ok) {
 			console.log(

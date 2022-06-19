@@ -23,7 +23,7 @@ import SkeletonLoad from "../../UI/skeleton/Skeleton";
 export default function UsersList() {
 	const { userList, isError } = useUserList();
 
-	const { data, error } = useSWR(`/api/admin/orders`);
+	const { data, error } = useSWR(`/api/orders`);
 
 	if (isError || error) return "Ошибка!";
 

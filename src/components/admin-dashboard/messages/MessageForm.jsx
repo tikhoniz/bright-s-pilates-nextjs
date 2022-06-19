@@ -29,7 +29,7 @@ export default function MessageForm({ message, onClose }) {
 			return;
 		}
 
-		mutate(`/api/admin/messages`);
+		mutate(`/api/messages`);
 
 		setSubmitting(false);
 		onClose();

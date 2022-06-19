@@ -24,7 +24,8 @@ const MessageList = () => {
 	const [message, setMessage] = useState({});
 
 	const { userList, isLoading, isError } = useUserList();
-	const { data, error } = useSWR(`/api/admin/messages`);
+
+	const { data, error } = useSWR(`/api/messages`);
 
 	const messages = data ?? [];
 

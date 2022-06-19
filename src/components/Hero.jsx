@@ -56,7 +56,7 @@ const Hero = () => {
 								fontWeight: 300,
 							}}
 						>
-							Online pilates studio
+							Online studio
 						</Typography>
 					</Box>
 				</motion.div>
@@ -68,12 +68,16 @@ const Hero = () => {
 						sx={{
 							color: "common.white",
 							//color: "#feec00",
+							//color: "#bab1af",// diana v.1
+							//color: "#cdbdb9", // diana v.2
 							textTransform: "uppercase",
 							fontSize: { xs: "12vw", sm: "9vw", md: "5vw" },
 							fontWeight: 400,
-							letterSpacing: "2vw",
+							letterSpacing: "0.5vw",
+							//letterSpacing: "2vw",
+
 							lineHeight: 1,
-							paddingLeft: "2vw",
+							//paddingLeft: "2vw",
 						}}
 					>
 						Bright's Pilates

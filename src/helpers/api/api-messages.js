@@ -45,7 +45,7 @@ export async function createMessage({
 //* @route PATCH /api/messages/:slug
 //* @access Admin
 export const updateUserMessage = async ({ messageId, answer }) => {
-	const response = await fetch(`/api/admin/messages/${messageId}`, {
+	const response = await fetch(`/api/messages/${messageId}`, {
 		method: "PATCH",
 		body: JSON.stringify({ answer }),
 		headers: { "Content-Type": "application/json" },

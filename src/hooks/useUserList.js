@@ -5,11 +5,9 @@ function useUserList(options) {
 	const { status } = useSession();
 
 	const { data, error } = useSWR(
-		status === "authenticated" ? `/api/admin/users` : null,
+		status === "authenticated" ? `/api/users` : null,
 		options
 	);
-
-	const isLoadin = !error && !data;
 
 	return {
 		userList: data,
