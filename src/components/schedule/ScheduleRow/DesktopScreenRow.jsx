@@ -48,10 +48,10 @@ const TableRowStyle = styled(TableRow)(({ theme }) => ({
 		transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
 
 		boxShadow: "inset 0 0 12px 0 rgb(145 158 171 / 24%)",
-
 		//"& .showActions": { opacity: 1 },
 	},
 }));
+
 //----------------------------------------------------------------
 
 const DesktopScreenRow = ({
@@ -91,7 +91,7 @@ const DesktopScreenRow = ({
 					<Box>
 						<Label
 							variant={isInvolved ? "ghost" : "outlined"}
-							height="40px"
+							height="80px"
 							sx={{ width: { xs: "100px", lg: "155px" } }}
 							color={
 								(freeAccess && "success") ||
@@ -99,16 +99,18 @@ const DesktopScreenRow = ({
 								"error"
 							}
 						>
-							<Typography variant="button">
-								{freeAccess ? "бесплатный" : "платный"}
-							</Typography>
+							<Stack alignItems="center">
+								<Typography variant="h5">
+									{freeAccess ? "бесплатный" : "платный"}
+								</Typography>
 
-							<Typography
-								variant="button"
-								sx={{ display: { xs: "none", lg: "block" } }}
-							>
-								&nbsp;класс
-							</Typography>
+								<Typography
+									variant="h5"
+									sx={{ display: { xs: "none", lg: "block" } }}
+								>
+									&nbsp;класс
+								</Typography>
+							</Stack>
 						</Label>
 					</Box>
 				</Tooltip>
@@ -116,15 +118,23 @@ const DesktopScreenRow = ({
 
 			<TableCell>
 				<Stack>
-					<time dateTime={startTime}>
-						{humanReadableWeekday(startTime, "ru-RU")}
-					</time>
-					<time dateTime={startTime}>
-						{humanReadableDate(startTime, "ru-RU")}
-					</time>
-					<time dateTime={startTime}>
-						в {humanReadableTime(startTime, "ru-RU")}
-					</time>
+					<Typography>
+						<time dateTime={startTime}>
+							{humanReadableWeekday(startTime, "ru-RU")}
+						</time>
+					</Typography>
+
+					<Typography variant="h4">
+						<time dateTime={startTime}>
+							{humanReadableTime(startTime, "ru-RU")}
+						</time>
+					</Typography>
+
+					<Typography variant="h5">
+						<time dateTime={startTime}>
+							{humanReadableDate(startTime, "ru-RU")}
+						</time>
+					</Typography>
 				</Stack>
 			</TableCell>
 
@@ -157,7 +167,7 @@ const DesktopScreenRow = ({
 					position: "relative",
 				}}
 			>
-				<Skeleton
+				{/*<Skeleton
 					variant="rectangular"
 					animation="wave"
 					sx={{
@@ -169,7 +179,8 @@ const DesktopScreenRow = ({
 						bgcolor: "grey.250",
 						width: buttonWidth,
 					}}
-				/>
+				/>*/}
+
 				{!user.email && (
 					<SingupButton
 						sx={{

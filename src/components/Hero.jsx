@@ -24,65 +24,67 @@ const ContentStyle = styled((props) => <Stack {...props} />)(({ theme }) => ({
 		margin: "auto",
 		alignItems: "center",
 	},
+	//padding: 100,
+	//backgroundColor: "#A6928899",
 }));
 
 const Hero = () => {
 	return (
 		<RootStyle initial="initial" animate="animate" variants={varWrapEnter}>
 			<ContentStyle>
-				<motion.div variants={varFadeInDown}>
-					<Box
-						sx={
-							{
-								//display: "flex",
-								//alignItems: "center",
-								//textAlign: "center",
-							}
+				{/*<motion.div variants={varFadeInDown}>*/}
+				<Box
+					sx={
+						{
+							//display: "flex",
+							//alignItems: "center",
+							//textAlign: "center",
 						}
-					>
-						<Typography
-							component="h2"
-							variant="inherit"
-							gutterBottom
-							sx={{
-								color: "primary.main",
-								//color: "#028dd1",
-								fontSize: { xs: "4vw", md: "2vw" },
-								lineHeight: 2.2,
-								letterSpacing: "1vw",
-								whiteSpace: "nowrap",
-								textTransform: "uppercase",
-								paddingLeft: "2vw",
-								fontWeight: 300,
-							}}
-						>
-							Online studio
-						</Typography>
-					</Box>
-				</motion.div>
-
-				<motion.div variants={varFadeInUp}>
+					}
+				>
 					<Typography
-						component="h3"
+						component="h2"
 						variant="inherit"
+						gutterBottom
 						sx={{
-							color: "common.white",
-							//color: "#feec00",
-							//color: "#bab1af",// diana v.1
-							//color: "#cdbdb9", // diana v.2
+							color: "primary.main",
+							fontFamily: "fontFamilySecondary",
+							fontSize: { xs: "4vw", md: "2vw" },
+							lineHeight: 2.2,
+							letterSpacing: "1vw",
+							whiteSpace: "nowrap",
 							textTransform: "uppercase",
-							fontSize: { xs: "12vw", sm: "9vw", md: "5vw" },
+							paddingLeft: "2vw",
 							fontWeight: 400,
-							letterSpacing: "0.5vw",
-							//letterSpacing: "2vw",
-
-							lineHeight: 1,
-							//paddingLeft: "2vw",
 						}}
 					>
-						Bright's Pilates
+						Online studio
 					</Typography>
-				</motion.div>
+				</Box>
+				{/*</motion.div>*/}
+
+				{/*<motion.div variants={varFadeInUp}>*/}
+				<Typography
+					component="h3"
+					variant="inherit"
+					sx={{
+						color: "common.white",
+						//color: "#feec00",
+						//color: "#bab1af",// diana v.1
+						//color: "#cdbdb9", // diana v.2
+						textTransform: "uppercase",
+						fontSize: { xs: "12vw", sm: "9vw", md: "5vw" },
+						fontWeight: 600,
+						letterSpacing: "0.5vw",
+						//letterSpacing: "2vw",
+
+						lineHeight: 1,
+						//paddingLeft: "2vw",
+					}}
+				>
+					Bright's Pilates
+				</Typography>
+				{/*</motion.div>*/}
 			</ContentStyle>
 		</RootStyle>
 	);

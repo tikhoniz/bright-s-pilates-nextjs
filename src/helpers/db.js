@@ -62,12 +62,17 @@ export async function getDocument(client, collection, id) {
 
 	return document;
 }
-
+//* USER
 // Получает пользователя из базы по email
 export async function getUserByEmail(client, collection, email) {
 	const db = client.db();
 	//получаем
-	const user = await db.collection(collection).findOne({ email: email });
+	const user = await db
+		.collection(collection)
+		.findOne(
+			{ email: email },
+			{ projection: { createdAt: 0, lastLogin: 0, updatedAt: 0 } }
+		);
 
 	return user;
 }

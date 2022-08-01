@@ -17,7 +17,6 @@ import {
 	CardHeader,
 	Typography,
 	TableContainer,
-	Skeleton,
 } from "@mui/material";
 import { useMediaQuery, useTheme } from "@mui/material";
 // context
@@ -33,14 +32,12 @@ import useSWR from "swr";
 import { MotionInView, varFadeIn } from "../../animate";
 import useUserGroupClasses from "../../../hooks/useUserGroupClasses";
 import renderMessage from "../../../helpers/renderMessage";
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
 
 const UpcomingClasses = ({ onEnrollment }) => {
 	const theme = useTheme();
 	const router = useRouter();
-	const { data: session, status } = useSession();
 
-	const { user } = session || {};
-	const userEmail = user?.email;
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
 	// получение списка групповых тренировок пользователя, обновляется при переключении вкладок или через 90 секунд
@@ -55,30 +52,6 @@ const UpcomingClasses = ({ onEnrollment }) => {
 		return `${isError}: ${renderMessage(isError.info)}. Код ошибки: ${
 			isError.status
 		}`;
-
-	const SkeletonLoad = () => {
-		return (
-			<Box
-				sx={{
-					flexGrow: 1,
-					mx: 1,
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "center",
-					alignItems: "center",
-				}}
-			>
-				<Skeleton
-					width="100%"
-					height={56}
-					variant="rectangular"
-					sx={{ borderRadius: 0.5, backgroundColor: "#eaecee" }}
-				/>
-				<Skeleton variant="text" height={60} width="95%" />
-				<Skeleton variant="text" height={60} width="95%" />
-			</Box>
-		);
-	};
 
 	return (
 		<MotionInView variants={varFadeIn}>
@@ -108,7 +81,14 @@ const UpcomingClasses = ({ onEnrollment }) => {
 					}
 				/>
 
-				{isLoading && <SkeletonLoad />}
+				{isLoading && (
+					<SkeletonLoad
+						num={2}
+						height={60}
+						width={"95%"}
+						sx={{ margin: "10px" }}
+					/>
+				)}
 
 				{!isLoading && upcoming.length > 0 && (
 					<Scrollbar>
@@ -133,7 +113,6 @@ const UpcomingClasses = ({ onEnrollment }) => {
 												key={item._id}
 												router={router}
 												isMobile={isMobile}
-												userEmail={userEmail}
 											/>
 										);
 									})}
@@ -142,6 +121,7 @@ const UpcomingClasses = ({ onEnrollment }) => {
 						</TableContainer>
 					</Scrollbar>
 				)}
+
 				{!isLoading && upcoming.length <= 0 && (
 					<MotionInView variants={varFadeIn}>
 						<Box

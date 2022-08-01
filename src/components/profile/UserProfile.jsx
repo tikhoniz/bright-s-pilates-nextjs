@@ -9,9 +9,6 @@ import ModalBasic from "../modal/ModalBasic";
 import ProfileFollowInfo from "./ProfileFollowInfo";
 import EnrollmentPersonalForm from "../forms/EnrollmentPersonalForm";
 
-// ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
-
 const UserProfile = () => {
 	const [isOpen, setOpen] = useState(false);
 	const theme = useTheme();
@@ -37,6 +34,7 @@ const UserProfile = () => {
 						<ProfileAbout />
 					</Stack>
 				</Grid>
+
 				<Grid item xs={12} md={8}>
 					<Stack spacing={3}>
 						<UpcomingClasses onEnrollment={() => setOpen(true)} />

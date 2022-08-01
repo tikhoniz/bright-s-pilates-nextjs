@@ -36,13 +36,20 @@ class MyDocument extends Document {
 					<link rel="manifest" href="/manifest.json" />
 
 					<link rel="preconnect" href="https://fonts.googleapis.com" />
+
 					<link
 						rel="preconnect"
 						href="https://fonts.gstatic.com"
 						crossOrigin="true"
 					/>
+
 					<link
 						href="https://fonts.googleapis.com/css2?family=Jost:wght@100;300;400;500;600;700&family=Syncopate:wght@400;700&display=swap"
+						rel="stylesheet"
+					/>
+
+					<link
+						href="https://fonts.googleapis.com/css2?family=Alegreya:wght@100;300;400;500;600;700&family=Syncopate:wght@400;700&display=swap"
 						rel="stylesheet"
 					/>
 
@@ -99,8 +106,6 @@ class MyDocument extends Document {
 					</noscript>
 					<Main />
 					<NextScript />
-					{/*<div id="drawer-hook"></div>
-					<div id="modal-hook"></div>*/}
 				</body>
 			</Html>
 		);

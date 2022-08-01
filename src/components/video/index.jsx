@@ -1,7 +1,16 @@
 import React, { useRef, useState } from "react";
 import ReactPlayer from "react-player";
 // material
-import { Button, Container, Grid, Skeleton, CardHeader } from "@mui/material";
+import { ModalUnstyled } from "@mui/base";
+
+import {
+	Container,
+	Grid,
+	Skeleton,
+	CardHeader,
+	Backdrop,
+	Box,
+} from "@mui/material";
 import { styled } from "@mui/material";
 // components
 import VideoCard from "./VideoCard";
@@ -10,38 +19,33 @@ import { MotionInView, varFadeIn } from "../animate";
 //icons
 import { Icon } from "@iconify/react";
 import roundOndemandVideo from "@iconify/icons-ic/round-ondemand-video";
-import closeCircleOutline from "@iconify/icons-eva/close-circle-outline";
+import { MIconButton } from "../@material-extend";
+import closeFill from "@iconify/icons-eva/close-fill";
 
 const Wrapper = styled("div")`
-	box-shadow: 0 3px 7px rgba(158, 155, 155, 0.3);
+	box-shadow: 0 0 30px rgb(0 0 0 / 30%), 0 0 8px -5px rgb(0 0 0 / 30%);
 	background-clip: padding-box;
 	background: linear-gradient(to top, #181818, transparent 50%);
 	position: relative;
 	padding-top: 56.25%;
 `;
 
-const Backdrop = styled("div")`
-	z-index: 1300;
-	position: fixed;
-	top: 0;
-	left: 0;
-	background-color: #ffffff;
-
-	height: 100vh;
-	width: 100vw;
-
-	overflow: hidden;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-`;
-
 const StyledReactPlayer = styled(ReactPlayer)`
 	position: absolute;
 	left: 0;
 	top: 0;
+`;
+
+const StyledModal = styled(ModalUnstyled)`
+	position: fixed;
+	z-index: 1300;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
 const SkeletonLoad = () => {
@@ -86,34 +90,41 @@ const VideoList = ({ videoList }) => {
 				</MotionInView>
 			</Container>
 
-			{videoId && (
-				<Backdrop onClick={() => setVideoId(null)}>
-					<Button
-						type="button"
-						color="primary"
-						variant="text"
+			<StyledModal
+				open={!!videoId}
+				onClose={() => setVideoId(null)}
+				BackdropComponent={Backdrop}
+				BackdropProps={{
+					timeout: 300,
+				}}
+				closeAfterTransition={true}
+			>
+				<Box sx={{ width: { xs: "100%", md: "75%" }, maxWidth: "1600px" }}>
+					<MIconButton
 						size="large"
-						startIcon={
-							<Icon icon={closeCircleOutline} width={24} height={24} />
-						}
-						sx={{ mb: 1.5 }}
+						onClick={() => setVideoId(null)}
+						sx={{
+							mb: 1.5,
+							color: "white",
+							position: "absolute",
+							right: 15,
+							top: 15,
+						}}
 					>
-						Закрыть
-					</Button>
-					<div style={{ width: "100%", maxWidth: "800px" }}>
-						<Wrapper>
-							<StyledReactPlayer
-								width="100%"
-								height="100%"
-								ref={reactPlayerRef}
-								controls
-								playing
-								url={`https://www.youtube.com/watch?${videoId}`}
-							/>
-						</Wrapper>
-					</div>
-				</Backdrop>
-			)}
+						<Icon icon={closeFill} width="42px" height="42px" />
+					</MIconButton>
+					<Wrapper>
+						<StyledReactPlayer
+							width="100%"
+							height="100%"
+							ref={reactPlayerRef}
+							controls
+							//playing
+							url={`https://www.youtube.com/watch?${videoId}`}
+						/>
+					</Wrapper>
+				</Box>
+			</StyledModal>
 		</>
 	);
 };

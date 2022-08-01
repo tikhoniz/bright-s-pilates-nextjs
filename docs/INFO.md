@@ -109,6 +109,13 @@ borderColor: "#000000de !important",
 
 );
 
+## Изменение шрифта в блоке sx={{}}
+
+<Typography
+sx={{
+	fontFamily: "fontFamilySecondary"
+	}} >
+
 # Для некоторых модулей нужно импортировать стили
 
 ## slick-carousel

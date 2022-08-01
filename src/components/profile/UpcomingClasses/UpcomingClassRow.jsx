@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { useSnackbar } from "notistack";
-
 // material
-import {
-	Stack,
-	TableRow,
-	TableCell,
-	Typography,
-	Skeleton,
-	Box,
-} from "@mui/material";
+import { Stack, TableRow, TableCell, Typography, Box } from "@mui/material";
 // utils
 import {
 	humanReadableDate,
@@ -31,7 +22,7 @@ import PaymentIcon from "../../icons/icon_payment";
 import renderMessage from "../../../helpers/renderMessage";
 import useUser from "../../../hooks/useUser";
 import { useSWRConfig } from "swr";
-import { MotionInView, varFadeIn } from "../../animate";
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
 
 //---------------------------------------------------------------------------------
 const TIME_UNTIL_START_TIMER = 86400000;
@@ -40,12 +31,14 @@ const xsButtonWidth = 130;
 const buttonHeight = 44;
 //---------------------------------------------------------------------------------
 
-const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
+const UpcomingClassRow = ({ cls, router, isMobile }) => {
 	const [isExpired, setExpired] = useState(false);
 	const [isSubmitting, setSubmitting] = useState(false);
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-	const { user, isLoading, isError } = useUser();
 	const { mutate } = useSWRConfig();
+
+	const { user, isLoading, isError } = useUser();
+	const { _id: userId, zoomApp, email } = user;
 
 	useEffect(() => {
 		const expired = cancelTimeClassExpired < currentTime;
@@ -53,7 +46,6 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 		if (expired) {
 			setExpired(true);
 		}
-
 		// время до начала тренировки
 		const t = startTimeClass - currentTime - delayCancelTime;
 
@@ -69,7 +61,6 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 		}
 	}, [isExpired]);
 
-	const { _id: userId, zoomApp } = user || {};
 	const {
 		_id: classId,
 		type,
@@ -111,24 +102,15 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 			return;
 		}
 
-		mutate(`/api/classes/user/${userEmail}`);
-		mutate(`/api/users/${userEmail}`);
+		mutate(`/api/classes/user/${email}`);
+		mutate(`/api/users/${email}`);
 	}
 
 	if (isLoading)
 		return (
 			<TableRow>
 				<TableCell align="center" colSpan={"100%"} padding="none">
-					<Skeleton
-						variant="rectangular"
-						animation="wave"
-						sx={{
-							marginY: 1,
-							paddingTop: "45px",
-							borderRadius: "4px",
-							bgcolor: "grey.250",
-						}}
-					/>
+					<SkeletonLoad variant="rectangular" height={45} />
 				</TableCell>
 			</TableRow>
 		);
@@ -145,7 +127,7 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 	return (
 		<TableRow>
 			{!isMobile && (
-				<TableCell>
+				<TableCell align="center">
 					{freeAccess ? (
 						<NotPaymentIcon sx={{ height: 43, minWidth: 30 }} />
 					) : (
@@ -156,29 +138,33 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 
 			<TableCell>
 				<Stack>
-					<time dateTime={startTime}>
-						{humanReadableWeekday(startTime, "ru-RU")}
-					</time>
-					<time
-						dateTime={startTime}
-						style={{
-							fontSize: "16px",
-							fontWeight: 500,
-							whiteSpace: "nowrap",
-						}}
-					>
-						{humanReadableDate(startTime, "ru-RU")}
-					</time>
-					<time
-						dateTime={startTime}
-						style={{
-							fontSize: "16px",
-							fontWeight: 500,
-							whiteSpace: "nowrap",
-						}}
-					>
-						в {humanReadableTime(startTime, "ru-RU")}
-					</time>
+					<Typography>
+						<time dateTime={startTime}>
+							{humanReadableWeekday(startTime, "ru-RU")}
+						</time>
+					</Typography>
+
+					<Typography variant="h4">
+						<time
+							dateTime={startTime}
+							style={{
+								whiteSpace: "nowrap",
+							}}
+						>
+							{humanReadableTime(startTime, "ru-RU")}
+						</time>
+					</Typography>
+
+					<Typography variant="h5">
+						<time
+							dateTime={startTime}
+							style={{
+								whiteSpace: "nowrap",
+							}}
+						>
+							{humanReadableDate(startTime, "ru-RU")}
+						</time>
+					</Typography>
 				</Stack>
 			</TableCell>
 
@@ -209,20 +195,6 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 					position: "relative",
 				}}
 			>
-				<Skeleton
-					variant="rectangular"
-					animation="wave"
-					sx={{
-						position: "absolute",
-						top: 31,
-						zIndex: "-1",
-						paddingTop: { xs: "44px", md: "36px" },
-						borderRadius: "8px",
-						bgcolor: "grey.250",
-						width: { xs: xsButtonWidth, md: buttonWidth },
-					}}
-				/>
-
 				{isExpired && (
 					<JoinButton
 						sx={{
@@ -255,11 +227,3 @@ const UpcomingClassRow = ({ cls, router, isMobile, userEmail }) => {
 };
 
 export default UpcomingClassRow;
-
-//UpcomingClassRow.propTypes = {
-//	cls: PropTypes.object,
-//	user: PropTypes.object,
-//	cancelParticipation: PropTypes.func,
-//	router: PropTypes.object,
-//	isMobile: PropTypes.bool,
-//};

@@ -27,45 +27,7 @@ import { MotionInView, varFadeIn } from "../animate";
 import { Icon } from "@iconify/react";
 import baselineCalendarToday from "@iconify/icons-ic/baseline-calendar-today";
 import renderMessage from "../../helpers/renderMessage";
-
-const SkeletonLoad = () => {
-	return (
-		<Stack spacing={2} sx={{ mb: 10, p: 2 }}>
-			<Skeleton
-				width="100%"
-				height="60px"
-				variant="rectangular"
-				sx={{
-					backgroundColor: "#eaecee",
-					borderRadius: "4px",
-				}}
-			/>
-			{[...Array(3)].map((_, index) => (
-				<Grid
-					item
-					xs={12}
-					sm={12}
-					md={12}
-					key={index}
-					display="flex"
-					justifyContent="center"
-					alignItems="center"
-				>
-					<Skeleton
-						variant="rectangular"
-						width="95%"
-						animation="wave"
-						sx={{
-							paddingTop: "45px",
-							borderRadius: "4px",
-							bgcolor: "grey.250",
-						}}
-					/>
-				</Grid>
-			))}
-		</Stack>
-	);
-};
+import SkeletonLoad from "../UI/skeleton/Skeleton";
 
 export default function Schedule() {
 	const router = useRouter();
@@ -94,7 +56,14 @@ export default function Schedule() {
 				/>
 				<Scrollbar>
 					<TableContainer sx={{ minHeight: 355 }}>
-						{!data && <SkeletonLoad />}
+						{!data && (
+							<SkeletonLoad
+								num={5}
+								variant="rectangular"
+								height="60px"
+								width="95%"
+							/>
+						)}
 
 						{data && (
 							<MotionInView variants={varFadeIn}>
@@ -108,7 +77,7 @@ export default function Schedule() {
 												<ScheduleRow
 													key={row?._id}
 													cls={row ?? {}}
-													user={user ?? {}}
+													user={user}
 													router={router}
 													isDesktop={isDesktop}
 												/>

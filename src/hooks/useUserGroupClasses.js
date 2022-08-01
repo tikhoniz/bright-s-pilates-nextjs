@@ -4,16 +4,15 @@ import { useSession } from "next-auth/react";
 function useUserGroupClasses(options) {
 	const { data: session, status } = useSession();
 
-	const { user } = session || {};
-	const userEmail = user?.email;
-	// to make mistakes
-	//const userEmail = null;
-	//const userEmail = undefined;
-	//const userEmail = "yqwiqudhiuqdiuqdiqwd";
-	//const userEmail = "user@user.com";
+	let email = null;
+
+	if (status === "authenticated") {
+		const { user } = session;
+		email = user?.email;
+	}
 
 	const { data, error, isValidating } = useSWR(
-		userEmail ? `/api/classes/user/${userEmail}` : null,
+		email ? `/api/classes/user/${email}` : null,
 		options
 	);
 

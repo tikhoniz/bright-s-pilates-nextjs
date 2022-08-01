@@ -32,7 +32,7 @@ export default function QuestionAnswer() {
 
 				{isLoading && <SkeletonLoad num={3} variant="text" height={50} />}
 
-				{data && <QuestionAnswerList messages={data} />}
+				{!isLoading && data && <QuestionAnswerList messages={data} />}
 			</CardContent>
 		</Card>
 	);

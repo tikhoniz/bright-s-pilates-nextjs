@@ -1,10 +1,19 @@
 import PropTypes from "prop-types";
 // material
-import { Box, Card, Divider, Skeleton, Stack, Typography } from "@mui/material";
+import { Card, Divider, Skeleton, Stack, Typography } from "@mui/material";
 // utils
 import { fNumber } from "../../utils/formatNumber";
 import useUser from "../../hooks/useUser";
 import { MotionInView, varFadeIn } from "../animate";
+import { styled } from "@mui/material";
+
+// ----------------------------------------------------------------------
+
+const TypographyStyle = styled(Typography)(({ theme }) => ({
+	fontFamily: theme.typography.fontFamilySecondary,
+}));
+
+// ----------------------------------------------------------------------
 
 const SkeletonLoad = () => {
 	return <Skeleton width="3rem" variant="text" />;
@@ -28,17 +37,17 @@ const ProfileFollowInfo = () => {
 						alignItems="center"
 						justifyContent="space-between"
 					>
-						<Typography variant="h2">
-							{(isLoading || !user) && <SkeletonLoad />}
+						<TypographyStyle variant="h2">
+							{isLoading && <SkeletonLoad />}
 
-							{!isLoading && user && (
+							{!isLoading && !isError && (
 								<MotionInView variants={varFadeIn}>
 									{fNumber(user?.groups)}
 								</MotionInView>
 							)}
 
 							{isError && 0}
-						</Typography>
+						</TypographyStyle>
 
 						<Typography variant="subtitle2" sx={{ color: "text.secondary" }}>
 							Групповые
@@ -51,17 +60,17 @@ const ProfileFollowInfo = () => {
 						alignItems="center"
 						justifyContent="space-between"
 					>
-						<Typography variant="h2">
-							{(isLoading || !user) && <SkeletonLoad />}
+						<TypographyStyle variant="h2">
+							{isLoading && <SkeletonLoad />}
 
-							{!isLoading && user && (
+							{!isLoading && !isError && (
 								<MotionInView variants={varFadeIn}>
 									{fNumber(user?.personals)}
 								</MotionInView>
 							)}
 
 							{isError && 0}
-						</Typography>
+						</TypographyStyle>
 
 						<Typography variant="subtitle2" sx={{ color: "text.secondary" }}>
 							Персональные

@@ -34,7 +34,8 @@ const PRIMARY = {
 	//main: "#51c5cf",
 	//main: "#947169", // с сайта
 	main: "#a18984", // diana
-	dark: "#00aebd",
+	//dark: "#00aebd",
+	dark: "#826e6a", // diana
 	darker: "#005249",
 	lighter: "#C8FACD",
 	light: "#5BE584",

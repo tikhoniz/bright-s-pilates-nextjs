@@ -47,6 +47,7 @@ const Authentication = (props) => {
 	const [isLogin, setIsLogin] = useState(true);
 	const [isReset, setIsReset] = useState(false);
 	const [isVerified, setIsVerified] = useState(false);
+
 	return (
 		<RootStyle title="Вход в аккаунт | Bright's Pilates Studio">
 			<ContentStyle>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SWRConfig } from "swr";
 // next
 import Head from "next/head";
@@ -27,15 +27,6 @@ function MyApp({
 	emotionCache = clientSideEmotionCache,
 	pageProps,
 }) {
-	//useEffect(() => {
-	//	// Remove the server-side injected CSS.
-	//	const jssStyles = document.querySelector("#jss-server-side");
-
-	//	if (jssStyles) {
-	//		jssStyles.parentElement.removeChild(jssStyles);
-	//	}
-	//}, []);
-
 	//здесь получаем не только компоненты которые нужно отобразить но и
 	// пропсы созданные функциями getStaticProps и getServerSideProps
 

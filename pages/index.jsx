@@ -4,21 +4,21 @@ import { styled } from "@mui/material";
 import Hero from "../src/components/Hero";
 import Page from "../src/components/Page";
 import InfoBox from "../src/components/boxes/InfoBox";
-import AdOffers from "../src/components/UI/buttons/AdOffers";
 import BackgroundImage from "../src/components/BackgroundImage";
 import BenefitsBlock from "../src/components/benefits/BenefitsBlock";
-
+import DeviceWidget from "../src/components/boxes/DeviceWidget";
+import TutorialWidget from "../src/components/boxes/TutorialWidget";
+// images
 import mainImage from "../public/images/home-cover-image.jpg";
-import onlineTrainingImage from "../public/images/online-training-image.jpg";
 import headTeacherImage from "../public/images/head-teacher-image.jpg";
 
 //-------------------------------------------------
+
 const RootStyle = styled(Page)(({ theme }) => ({
 	position: "relative",
 	minHeight: "100%",
-	//backgroundColor: "#A69288",
-	//backgroundColor: "#cfbfb6",
 }));
+
 //-------------------------------------------------
 
 const HomePage = () => {
@@ -31,8 +31,6 @@ const HomePage = () => {
 				"Oнлайн занятия из любой точки мира в студии Bright's Pilates"
 			</h1>
 
-			{/*<AdOffers />*/}
-
 			<Hero />
 
 			<BackgroundImage
@@ -40,20 +38,7 @@ const HomePage = () => {
 				alt="Женщина выполняет упражнение в большой светлой комнате"
 			/>
 
-			<InfoBox
-				leftSide
-				image={onlineTrainingImage}
-				alt="Девушка ведёт персональную тренировку онлайн"
-				head="Пилатес студия онлайн"
-				text="'Живые' онлайн классы для всех. Подбирайте подходящее время и
-								присоединяйтесь к уроку с единомышленниками. Заряжайтесь
-								энергией и создавайте гармоничное и функциональное тело!"
-				btnTitle="Расписание"
-				url="/schedule"
-				icon="/svg/calendar.svg"
-			/>
-
-			<BenefitsBlock />
+			<DeviceWidget />
 
 			<InfoBox
 				image={headTeacherImage}
@@ -64,6 +49,10 @@ const HomePage = () => {
 				url="/coaches/diana-head-coach"
 				icon="/svg/coach_icon.svg"
 			/>
+
+			<TutorialWidget />
+
+			<BenefitsBlock />
 		</RootStyle>
 	);
 };

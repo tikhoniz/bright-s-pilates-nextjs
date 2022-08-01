@@ -108,9 +108,9 @@ const JoinButton = ({ sx, classId, startTime, router, isZoomApp }) => {
 					}}
 				>
 					{seconds && (
-						<Stack direction={{ xs: "column", md: "row" }} alignItems="center">
+						<Stack direction={{ xs: "column" }} alignItems="center">
 							<Typography
-								variant="body2"
+								variant="subtitle1"
 								sx={{
 									color: "text.secondary",
 									mr: 0.5,
@@ -118,8 +118,9 @@ const JoinButton = ({ sx, classId, startTime, router, isZoomApp }) => {
 							>
 								Начало через:
 							</Typography>
+
 							<Typography
-								variant="subtitle2"
+								variant="h5"
 								sx={{ color: "text.secondary", minWidth: 45 }}
 							>
 								<span>{minutes || "__"}</span>:<span>{seconds || "__"}</span>

@@ -33,7 +33,7 @@ const BENEFITS_DESCRIPTION = [
 		motion: varFadeIn,
 	},
 	{
-		title: "с нами вы приобритете...",
+		title: "с нами вы приобретете...",
 		description:
 			"настоящее неподдельное чувство гармонии в своем теле. Миллионы людей по всему миру доверили свое тело и сознание методу Пилатес",
 		icon: <LegPullBackIcon />,
@@ -89,7 +89,7 @@ export default function BenefitsBlock() {
 
 	return (
 		<Container maxWidth="xl">
-			<Grid container sx={{ my: 0 }}>
+			<Grid container sx={{ my: 15 }}>
 				{BENEFITS_DESCRIPTION.map((item) => (
 					<Grid item xs={12} md={4} key={item.title}>
 						<MotionInView variants={isDesktop ? item.motion : varFadeIn}>

@@ -11,11 +11,12 @@ import {
 	CardHeader,
 	TableContainer,
 	TablePagination,
-	Skeleton,
 } from "@mui/material";
 import { useMediaQuery, useTheme } from "@mui/material";
 // components
-import PaidOrder from "./PaidOrder";
+import SkeletonLoad from "../../UI/skeleton/Skeleton";
+import PaidOrderRow from "./PaidOrderRow";
+// hooks
 import useUserOrderList from "../../../hooks/useUserOrderList";
 
 const PaidOrderList = () => {
@@ -38,18 +39,10 @@ const PaidOrderList = () => {
 		setPage(0);
 	};
 
-	if (isError) return "Ошибка!";
-
-	const SkeletonLoad = () => {
-		return (
-			<TableRow>
-				<TableCell colSpan={"100%"}>
-					<Skeleton variant="text" height={100} />
-					<Skeleton variant="text" height={100} />
-				</TableCell>
-			</TableRow>
-		);
-	};
+	if (isError)
+		return `${isError}: ${renderMessage(isError.info)}. Код ошибки: ${
+			isError.status
+		}`;
 
 	return (
 		<Card>
@@ -65,14 +58,25 @@ const PaidOrderList = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{isLoading && <SkeletonLoad />}
+						{isLoading && (
+							<TableRow>
+								<TableCell colSpan={"100%"}>
+									<SkeletonLoad
+										num={3}
+										height={50}
+										width={"98%"}
+										sx={{ margin: "10px" }}
+									/>
+								</TableCell>
+							</TableRow>
+						)}
 
 						{!isLoading &&
 							userOrders
 								.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								.map((item) => {
-									return <PaidOrder key={item._id} order={item} />;
+									return <PaidOrderRow key={item._id} order={item} />;
 								})}
 
 						{!isLoading && userOrders.length < 1 && (

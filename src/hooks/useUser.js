@@ -1,30 +1,24 @@
 import useSWR from "swr";
 import { useSession, signOut } from "next-auth/react";
 
-function useUser() {
+function useUser(options) {
 	const { data: session, status } = useSession();
+	let email = null;
 
-	//console.log("session", session);
-
-	const { user } = session ?? {};
-	const userEmail = user?.email;
-
-	//const userEmail = "skdjksjksd";
-	//const userEmail = "skdjksjksd@ygygy.sks";
+	if (status === "authenticated") {
+		const { user } = session;
+		email = user?.email;
+	}
 
 	const { data, error, isValidating, mutate } = useSWR(
-		userEmail ? `/api/users/${userEmail}` : null
+		email ? `/api/users/${email}` : null,
+		options
 	);
 
 	if (error?.info === "noUser") signOut();
-	//! изменить
-	delete data?.createdAt;
-	delete data?.lastLogin;
-	delete data?.updatedAt;
-	delete data?.password;
 
 	return {
-		user: data,
+		user: data ?? {},
 		isLoading: !error && !data,
 		isError: error,
 		isValidating: isValidating,

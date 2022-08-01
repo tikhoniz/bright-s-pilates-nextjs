@@ -27,17 +27,17 @@ import classes from "./InfoBox.module.scss";
 const RootStyle = styled("div")(({ theme }) => ({
 	textAlign: "center",
 	paddingTop: theme.spacing(8),
-	paddingBottom: theme.spacing(8),
+	//paddingBottom: theme.spacing(8),
 	[theme.breakpoints.up("md")]: {
 		paddingTop: theme.spacing(15),
-		paddingBottom: theme.spacing(15),
+		//paddingBottom: theme.spacing(15),
 	},
 	//  lg: 1200, если экран больше то работает textAlign: "left",
 	// иначе работает textAlign: "center",
 	[theme.breakpoints.up("lg")]: {
 		textAlign: "left",
 		paddingTop: theme.spacing(20),
-		paddingBottom: theme.spacing(20),
+		//paddingBottom: theme.spacing(20),
 	},
 }));
 

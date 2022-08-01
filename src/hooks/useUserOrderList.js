@@ -4,11 +4,14 @@ import { useSession } from "next-auth/react";
 function useUserOrderList(options) {
 	const { data: session, status } = useSession();
 
-	const { user } = session ?? {};
-	const userEmail = user?.email;
+	let email = null;
 
+	if (status === "authenticated") {
+		const { user } = session;
+		email = user?.email;
+	}
 	const { data, error } = useSWR(
-		userEmail ? `/api/orders/user/${userEmail}` : null,
+		email ? `/api/orders/user/${email}` : null,
 		options
 	);
 
