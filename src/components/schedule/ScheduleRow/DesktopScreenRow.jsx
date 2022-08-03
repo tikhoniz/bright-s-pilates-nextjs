@@ -100,13 +100,13 @@ const DesktopScreenRow = ({
 							}
 						>
 							<Stack alignItems="center">
-								<Typography variant="h5">
+								<Typography sx={{ fontWeight: 700 }}>
 									{freeAccess ? "бесплатный" : "платный"}
 								</Typography>
 
 								<Typography
-									variant="h5"
-									sx={{ display: { xs: "none", lg: "block" } }}
+									//variant="h5"
+									sx={{ fontWeight: 700 }}
 								>
 									&nbsp;класс
 								</Typography>

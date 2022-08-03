@@ -98,7 +98,7 @@ const updateVideoYoutube = async (video) => {
 const VideoUpdateForm = ({ video, onClose }) => {
 	const { mutate } = useSWRConfig();
 	const { enqueueSnackbar } = useSnackbar();
-
+	// если присутствует ID присвоенное базой данных
 	const updateVideoId = video?._id;
 
 	const coverUrl =
@@ -123,10 +123,12 @@ const VideoUpdateForm = ({ video, onClose }) => {
 		onSubmit: async (values, { setErrors, resetForm, setSubmitting }) => {
 			try {
 				if (updateVideoId) {
+					const newCover = values?.cover?.file;
+
 					const updatedVideo = {
 						_id: updateVideoId,
 						title: values.title,
-						cover: values?.cover?.file ? values.cover : video.cover,
+						cover: newCover ? values.cover : video.cover,
 						youtubeId: values.youtubeId,
 						createdAt: video.createdAt,
 						description: values.description,
@@ -142,8 +144,8 @@ const VideoUpdateForm = ({ video, onClose }) => {
 						setSubmitting(false);
 						return;
 					}
-
-					deleteCoverYouTubeVideo(video?.cover?.id);
+					// удаляет старую обложку если есть новая
+					newCover && deleteCoverYouTubeVideo(video?.cover?.id);
 				} else {
 					const response = await createVideoYoutube(values);
 

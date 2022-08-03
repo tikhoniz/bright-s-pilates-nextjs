@@ -30,90 +30,84 @@ import mainPhoto from "../../../public/images/desktop-laptop-tablet-phone.png";
 
 import SvgIconStyle from "../SvgIconStyle";
 
-const RootStyle = styled(Box)(({ theme }) => ({
-	borderRadius: 2,
-	maxWidth: 1480,
-	margin: "0 auto",
-	//boxShadow: shadow,
-	//marginTop: theme.spacing(15),
-	//textAlign: "center",
-	padding: theme.spacing(2),
-
-	////paddingBottom: theme.spacing(8),
-	[theme.breakpoints.up("md")]: {
-		padding: theme.spacing(8),
-
-		//paddingBottom: theme.spacing(15),
+const ButtonStyle = styled(Button)(({ theme }) => ({
+	minWidth: 245,
+	marginTop: theme.spacing(5),
+	[theme.breakpoints.up("sm")]: {
+		marginTop: theme.spacing(6),
+		fontSize: 18,
 	},
-	////  lg: 1200, если экран больше то работает textAlign: "left",
-	//// иначе работает textAlign: "center",
-	//[theme.breakpoints.up("lg")]: {
-	//	textAlign: "left",
-	//	paddingTop: theme.spacing(20),
-	//	//paddingBottom: theme.spacing(20),
-	//},
+	[theme.breakpoints.up("md")]: {
+		minWidth: 200,
+		marginTop: theme.spacing(7),
+		fontSize: 22,
+	},
+	[theme.breakpoints.up("lg")]: {
+		marginTop: theme.spacing(10),
+		fontSize: 24,
+	},
+	[theme.breakpoints.up("xl")]: {
+		marginTop: theme.spacing(12),
+		fontSize: 28,
+	},
 }));
 
 const DeviceWidget = () => {
-	const theme = useTheme();
-	//const router = useRouter();
-	//const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-
-	//const isLight = theme.palette.mode === "light";
-	//const shadow = `-40px 40px 80px ${alpha(
-	//	isLight ? theme.palette.grey[500] : theme.palette.common.black,
-	//	0.48
-	//)}`;
-
-	//const slideImage = leftSide ? varFadeInRight : varFadeInLeft;
-	//const slideText = leftSide ? varFadeInLeft : varFadeInRight;
-
 	return (
-		<RootStyle>
+		<Container maxWidth="xl">
 			<Typography
-				variant="h2"
+				component="h2"
 				sx={{
 					textTransform: "uppercase",
 					textAlign: "center",
+					fontWeight: 600,
 
-					//[theme.breakpoints.down("md")]: {
-					p: 10,
-					//},
+					fontSize: {
+						xs: "2rem",
+						sm: "3rem",
+						md: "3.5rem",
+						lg: "4rem",
+						xl: "5rem",
+					},
+					py: { xs: 3, sm: 5, md: 6, lg: 7, xl: 8 },
 				}}
 			>
 				Пилатес студия онлайн
 			</Typography>
 
-			<Image
-				//alt={alt}
-				src={mainPhoto}
-				placeholder="blur"
-				layout="responsive"
-				objectFit="cover"
-				//className={classes.infoBoxImg}
-			/>
+			<Box
+				sx={{
+					mx: { xs: 1, sm: 3, md: 8, lg: 20 },
+				}}
+			>
+				<Image
+					//alt={alt}
+					src={mainPhoto}
+					placeholder="blur"
+					layout="responsive"
+				/>
+			</Box>
 
 			<Stack alignItems="center">
 				<NextLink href="/schedule" passHref>
-					<Button
+					<ButtonStyle
 						variant="outlined"
-						fullWidth
-						//onClick={() => router.push("/schedule")}
 						size="large"
-						endIcon={<SvgIconStyle src="/svg/calendar.svg" />}
-						sx={{
-							maxWidth: "265px",
-							marginTop: 8,
-							//[theme.breakpoints.down("md")]: {
-							//marginTop: 3,
-							//},
-						}}
+						endIcon={
+							<SvgIconStyle
+								src="/svg/calendar.svg"
+								sx={{
+									width: { xs: 18, sm: 22, md: 24, lg: 28 },
+									height: { xs: 18, sm: 22, md: 24, lg: 28 },
+								}}
+							/>
+						}
 					>
 						Расписание
-					</Button>
+					</ButtonStyle>
 				</NextLink>
 			</Stack>
-		</RootStyle>
+		</Container>
 	);
 };
 

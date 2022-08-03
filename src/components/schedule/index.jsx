@@ -14,6 +14,7 @@ import {
 	TableBody,
 	CardHeader,
 	TableContainer,
+	Box,
 } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
 // components
@@ -49,46 +50,54 @@ export default function Schedule() {
 	return (
 		<Container maxWidth="xl">
 			<MotionInView variants={varFadeIn}>
-				<CardHeader
-					title="Расписание тренировок"
-					sx={{ mb: 3 }}
-					avatar={<Icon icon={baselineCalendarToday} width={26} height={26} />}
-				/>
-				<Scrollbar>
-					<TableContainer sx={{ minHeight: 355 }}>
-						{!data && (
-							<SkeletonLoad
-								num={5}
-								variant="rectangular"
-								height="60px"
-								width="95%"
-							/>
-						)}
+				<Box
+					sx={{
+						mx: { lg: 8 },
+					}}
+				>
+					<CardHeader
+						title="Расписание тренировок"
+						sx={{ mb: 3 }}
+						avatar={
+							<Icon icon={baselineCalendarToday} width={26} height={26} />
+						}
+					/>
+					<Scrollbar>
+						<TableContainer sx={{ minHeight: 355 }}>
+							{!data && (
+								<SkeletonLoad
+									num={5}
+									variant="rectangular"
+									height="60px"
+									width="95%"
+								/>
+							)}
 
-						{data && (
-							<MotionInView variants={varFadeIn}>
-								<Table>
-									{isDesktop && <TableHead />}
-									<TableBody>
-										{data.length < 1 ? (
-											<NoClasses />
-										) : (
-											data.map((row) => (
-												<ScheduleRow
-													key={row?._id}
-													cls={row ?? {}}
-													user={user}
-													router={router}
-													isDesktop={isDesktop}
-												/>
-											))
-										)}
-									</TableBody>
-								</Table>
-							</MotionInView>
-						)}
-					</TableContainer>
-				</Scrollbar>
+							{data && (
+								<MotionInView variants={varFadeIn}>
+									<Table>
+										{isDesktop && <TableHead />}
+										<TableBody>
+											{data.length < 1 ? (
+												<NoClasses />
+											) : (
+												data.map((row) => (
+													<ScheduleRow
+														key={row?._id}
+														cls={row ?? {}}
+														user={user}
+														router={router}
+														isDesktop={isDesktop}
+													/>
+												))
+											)}
+										</TableBody>
+									</Table>
+								</MotionInView>
+							)}
+						</TableContainer>
+					</Scrollbar>
+				</Box>
 			</MotionInView>
 		</Container>
 	);

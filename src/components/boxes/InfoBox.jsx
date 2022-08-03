@@ -2,15 +2,8 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 // material
-import { alpha, useTheme, styled } from "@mui/material";
-import {
-	Box,
-	Grid,
-	Button,
-	Container,
-	Typography,
-	useMediaQuery,
-} from "@mui/material";
+import { alpha, useTheme, styled, Button } from "@mui/material";
+import { Box, Grid, Container, Typography, useMediaQuery } from "@mui/material";
 //icons
 import SvgIconStyle from "../SvgIconStyle";
 // animation
@@ -38,6 +31,29 @@ const RootStyle = styled("div")(({ theme }) => ({
 		textAlign: "left",
 		paddingTop: theme.spacing(20),
 		//paddingBottom: theme.spacing(20),
+	},
+}));
+
+const ButtonStyle = styled(Button)(({ theme }) => ({
+	marginTop: theme.spacing(5),
+	minWidth: 245,
+
+	[theme.breakpoints.up("sm")]: {
+		marginTop: theme.spacing(6),
+		fontSize: 18,
+	},
+	[theme.breakpoints.up("md")]: {
+		minWidth: 200,
+		marginTop: theme.spacing(7),
+		fontSize: 22,
+	},
+	[theme.breakpoints.up("lg")]: {
+		marginTop: theme.spacing(10),
+		fontSize: 24,
+	},
+	[theme.breakpoints.up("xl")]: {
+		marginTop: theme.spacing(12),
+		fontSize: 28,
 	},
 }));
 
@@ -92,10 +108,12 @@ const InfoBox = ({ leftSide, image, alt, head, text, btnTitle, url, icon }) => {
 						<MotionInView variants={isDesktop ? slideText : varFadeIn}>
 							<Typography
 								sx={{
-									color: (theme) =>
-										theme.palette.mode === "light"
-											? "text.secondary"
-											: "common.white",
+									color: "text.secondary",
+									fontSize: { xs: "1.4rem", md: "2rem" },
+									//color: (theme) =>
+									//	theme.palette.mode === "light"
+									//		? "text.secondary"
+									//		: "common.white",
 								}}
 							>
 								{text}
@@ -103,21 +121,22 @@ const InfoBox = ({ leftSide, image, alt, head, text, btnTitle, url, icon }) => {
 						</MotionInView>
 
 						<MotionInView variants={isDesktop ? varFadeInUp : varFadeIn}>
-							<Button
+							<ButtonStyle
 								variant="outlined"
 								onClick={() => router.push(url)}
 								size="large"
-								endIcon={<SvgIconStyle src={icon} />}
-								sx={{
-									minWidth: "265px",
-									marginTop: 5,
-									[theme.breakpoints.down("md")]: {
-										marginTop: 3,
-									},
-								}}
+								endIcon={
+									<SvgIconStyle
+										src={icon}
+										sx={{
+											width: { xs: 18, sm: 22, md: 24, lg: 28 },
+											height: { xs: 18, sm: 22, md: 24, lg: 28 },
+										}}
+									/>
+								}
 							>
 								{btnTitle}
-							</Button>
+							</ButtonStyle>
 						</MotionInView>
 					</Grid>
 				</Grid>
