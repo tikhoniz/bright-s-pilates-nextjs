@@ -11,6 +11,7 @@ import TutorialWidget from "../src/components/boxes/TutorialWidget";
 // images
 import mainImage from "../public/images/home-cover-image.jpg";
 import headTeacherImage from "../public/images/head-teacher-image.jpg";
+import { MotionInView, varFadeIn } from "../src/components/animate";
 
 //-------------------------------------------------
 
@@ -49,8 +50,9 @@ const HomePage = () => {
 				url="/coaches/diana-head-coach"
 				icon="/svg/coach_icon.svg"
 			/>
-
-			<TutorialWidget />
+			<MotionInView variants={varFadeIn}>
+				<TutorialWidget />
+			</MotionInView>
 
 			<BenefitsBlock />
 		</RootStyle>

@@ -33,8 +33,8 @@ const VideoStyle = styled("video")(({ theme }) => ({
 	width: "100%",
 	height: "auto",
 	zIndex: -10,
-	objectFit: "cover",
-	transform: "scale(0.77)",
+	//objectFit: "cover",
+	//transform: "scale(0.77)",
 
 	[theme.breakpoints.up("sm")]: {
 		transform: "scale(0.86)",
@@ -53,24 +53,24 @@ const TutorialWidget = () => {
 
 	return (
 		<Container maxWidth="xl" sx={{ display: "flex", justifyContent: "center" }}>
-			<MotionInView variants={varFadeIn}>
-				<WrapperStyle>
-					<VideoStyle
-						ref={reactPlayerRef}
-						autoPlay
-						muted
-						loop
-						playsInline
-						poster={`/images/${
-							isDesktop ? "tutorial_desktop-bg" : "tutorial_tablet-bg"
-						}.png`}
-						autobuffer="true"
-						src={`/video/${
-							isDesktop ? "tutorial_desktop" : "tutorial_tablet"
-						}.mp4`}
-					/>
-				</WrapperStyle>
-			</MotionInView>
+			<WrapperStyle>
+				<VideoStyle
+					ref={reactPlayerRef}
+					autoPlay
+					muted
+					loop
+					playsInline
+					width={1920}
+					height={1080}
+					poster={`/images/${
+						isDesktop ? "tutorial_desktop-bg" : "tutorial_tablet-bg"
+					}.png`}
+					autobuffer="true"
+					src={`/video/${
+						isDesktop ? "tutorial_desktop" : "tutorial_tablet"
+					}.mp4`}
+				/>
+			</WrapperStyle>
 		</Container>
 	);
 };
