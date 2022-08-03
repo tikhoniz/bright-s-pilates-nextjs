@@ -1,8 +1,7 @@
 import { useRef } from "react";
 // material
 import { Container, styled } from "@mui/material";
-import { useMediaQuery, useTheme } from "@mui/material";
-import { MotionInView, varFadeIn } from "../animate";
+import MHidden from "../@material-extend/MHidden";
 
 const WrapperStyle = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -15,12 +14,9 @@ const WrapperStyle = styled("div")(({ theme }) => ({
 
 	[theme.breakpoints.up("sm")]: {
 		backgroundImage: "url(/images/tablet_tutorial-frame.png)",
-		//maxWidth: "640px",
-		//marginTop: 45,
 	},
 	[theme.breakpoints.up("md")]: {
 		backgroundImage: "url(/images/desktop_tutorial-frame.png)",
-		//maxWidth: "1420px",
 		marginTop: 160,
 		marginLeft: 100,
 		marginRight: 100,
@@ -33,7 +29,6 @@ const VideoStyle = styled("video")(({ theme }) => ({
 	width: "100%",
 	height: "auto",
 	zIndex: -10,
-	//objectFit: "cover",
 	transform: "scale(0.77)",
 
 	[theme.breakpoints.up("sm")]: {
@@ -48,28 +43,55 @@ const VideoStyle = styled("video")(({ theme }) => ({
 const TutorialWidget = () => {
 	const reactPlayerRef = useRef();
 
-	const theme = useTheme();
-	const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-
 	return (
 		<Container maxWidth="xl" sx={{ display: "flex", justifyContent: "center" }}>
 			<WrapperStyle>
-				<VideoStyle
-					ref={reactPlayerRef}
-					autoPlay
-					muted
-					loop
-					playsInline
-					width={1920}
-					height={1080}
-					poster={`/images/${
-						isDesktop ? "tutorial_desktop-bg" : "tutorial_tablet-bg"
-					}.png`}
-					autobuffer="true"
-					src={`/video/${
-						isDesktop ? "tutorial_desktop" : "tutorial_tablet"
-					}.mp4`}
-				/>
+				<MHidden width="smUp">
+					<VideoStyle
+						ref={reactPlayerRef}
+						autoPlay
+						muted
+						loop
+						playsInline
+						width={500}
+						height={700}
+						poster={`/images/tutorial_tablet-bg.png`}
+						preload="auto"
+						src={`/video/tutorial_tablet.mp4`}
+					/>
+				</MHidden>
+
+				<MHidden width={"mdUp"}>
+					<MHidden width={"smDown"}>
+						<VideoStyle
+							ref={reactPlayerRef}
+							autoPlay
+							muted
+							loop
+							playsInline
+							width={720}
+							height={1100}
+							poster={`/images/tutorial_tablet-bg.png`}
+							preload="auto"
+							src={`/video/tutorial_tablet.mp4`}
+						/>
+					</MHidden>
+				</MHidden>
+
+				<MHidden width="mdDown">
+					<VideoStyle
+						ref={reactPlayerRef}
+						autoPlay
+						muted
+						loop
+						playsInline
+						width={1920}
+						height={1080}
+						poster={`/images/tutorial_desktop-bg.png`}
+						preload="auto"
+						src={`/video/tutorial_desktop.mp4`}
+					/>
+				</MHidden>
 			</WrapperStyle>
 		</Container>
 	);
