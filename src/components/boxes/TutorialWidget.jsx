@@ -34,7 +34,7 @@ const VideoStyle = styled("video")(({ theme }) => ({
 	height: "auto",
 	zIndex: -10,
 	//objectFit: "cover",
-	//transform: "scale(0.77)",
+	transform: "scale(0.77)",
 
 	[theme.breakpoints.up("sm")]: {
 		transform: "scale(0.86)",
