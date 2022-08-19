@@ -55,7 +55,8 @@ async function handler(req, res) {
 			city,
 			about,
 			cover,
-			avatar,
+			image,
+			imageId,
 			country,
 			phoneNumber,
 			displayName,
@@ -66,9 +67,11 @@ async function handler(req, res) {
 			const document = await getDocument(client, "users", userId);
 
 			if (document) {
-				if (avatar !== undefined) {
-					document.image = avatar;
-				}
+				//if (avatar !== undefined) {
+				//	document.image = avatar;
+				//}
+				document.imageId = imageId;
+				document.image = image;
 				document.cover = cover;
 				document.name = displayName;
 				document.lastName = displayLastName;

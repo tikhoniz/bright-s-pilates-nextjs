@@ -14,7 +14,7 @@ async function handler(req, res) {
 		return;
 	}
 
-	const { name, lastName, email, image, password, regType } = req.body;
+	const { name, email, password, image, provider } = req.body;
 
 	// легкая валидация на уровне сервера
 	if (!email || !email.includes("@")) {
@@ -22,51 +22,60 @@ async function handler(req, res) {
 		return;
 	}
 
-	if (regType === "Credentials" && (!password || password.trim().length < 5)) {
-		res.status(422).json({ message: "Длина пароля не менее 5 знаков" });
-		return;
-	}
+	//if (regType === "Credentials" && (!password || password.trim().length < 5)) {
+	//	res.status(422).json({ message: "Длина пароля не менее 5 знаков" });
+	//	return;
+	//}
+
+	const credentials = provider === "credentials";
+
+	const newUser = {
+		name: name,
+		email: email,
+		personals: 0,
+		groups: 0,
+		personalList: [],
+		groupList: [],
+		image: image,
+		imageId: null,
+		cover: "/covers/hermit_crabs-cover.png",
+		about: "",
+		country: "",
+		city: "",
+		phoneNumber: "",
+		zoomApp: false,
+		provider: provider,
+		createdAt: new Date(),
+		emailVerified: null,
+	};
 
 	try {
 		const client = await connectDatabase();
-		//проверка уникальности email
-		const existingUser = await getUserByEmail(client, "users", email);
 
-		if (existingUser) {
-			res.status(422).json({ message: "Этот email уже зарегистрирован" });
-			client.close();
-			return;
+		if (credentials) {
+			//проверка уникальности email
+			const existingUser = await getUserByEmail(client, "users", email);
+
+			if (existingUser) {
+				res.status(422).json({ message: "Этот email уже зарегистрирован" });
+				client.close();
+				return;
+			}
+
+			// хеширование пароля
+			const hashedPassword = await hashPassword(password);
+			newUser.password = hashedPassword;
+			newUser.image = "/images";
 		}
 
-		const hashedPassword = await hashPassword(password);
-
-		const result = await insertDocument(client, "users", {
-			name: name,
-			lastName: lastName,
-			email: email,
-			password: hashedPassword,
-			personals: 0,
-			groups: 0,
-			personalList: [],
-			groupList: [],
-			image: image,
-			cover: "/covers/hermit_crabs-cover.png",
-			about: "",
-			country: "",
-			city: "",
-			phoneNumber: "",
-			zoomApp: false,
-			regType: regType,
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		});
+		const result = await insertDocument(client, "users", newUser);
 
 		//@ send reset password mail
 		sendgridMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 		//! проверить испортив SENDGRID_API_KEY
 		await sendgridMail
-			.send(newUserMail({ name: name, lastName: lastName, email: email }))
+			.send(newUserMail({ name: name, email: email }))
 			.then(() => {
 				console.log("new user email sent");
 			})

@@ -59,6 +59,7 @@ export default function UserSettings({ router }) {
 		city,
 		email,
 		image,
+		imageId,
 		cover,
 		about,
 		country,
@@ -66,7 +67,7 @@ export default function UserSettings({ router }) {
 		phoneNumber,
 	} = user || {};
 
-	const url = createAvatarsImageUrl(image?.url);
+	//const url = createAvatarsImageUrl(image?.url);
 
 	const UpdateUserSchema = Yup.object().shape({
 		displayName: Yup.string().required("Обязательное поле"),
@@ -78,7 +79,8 @@ export default function UserSettings({ router }) {
 			displayName: name || "",
 			displayLastName: lastName || "",
 			email: email,
-			avatar: url !== "/avatar_default.png" ? url : "",
+			image: image,
+			imageId: imageId,
 			cover: cover,
 			about: about,
 			country: country,
@@ -88,7 +90,20 @@ export default function UserSettings({ router }) {
 		validationSchema: UpdateUserSchema,
 
 		onSubmit: async (values, { setErrors, setSubmitting }) => {
-			let avatar = image;
+			// обновляет профиль
+			const updatedUser = {
+				id: userId,
+				image: values.image,
+				imageId: values.imageId,
+				city: values.city,
+				cover: values.cover,
+				email: values.email,
+				about: values.about,
+				country: values.country,
+				displayName: values.displayName,
+				phoneNumber: values.phoneNumber,
+				displayLastName: values.displayLastName,
+			};
 
 			try {
 				//проверяет есть ли новое изображение
@@ -108,28 +123,15 @@ export default function UserSettings({ router }) {
 						return;
 					}
 
-					avatar = {
-						url: `${response.public_id}.${response.extension}`,
-						id: response.id,
-					};
+					updatedUser.image = `${process.env.publitio_avatars_folder}${response.public_id}.${response.extension}`;
+					updatedUser.imageId = response.id;
 
 					// удаляет старую картинку аватара
-					image?.id && deleteAvatarPublitio(image.id);
+					imageId && deleteAvatarPublitio(imageId);
 				}
 
 				// обновляет профиль
-				const result = await updateUserProfile({
-					id: userId,
-					avatar: avatar,
-					city: values.city,
-					cover: values.cover,
-					email: values.email,
-					about: values.about,
-					country: values.country,
-					displayName: values.displayName,
-					phoneNumber: values.phoneNumber,
-					displayLastName: values.displayLastName,
-				});
+				const result = await updateUserProfile(updatedUser);
 
 				if (!result.ok) {
 					enqueueSnackbar("Не удалось обновить профиль", {
@@ -303,6 +305,7 @@ export default function UserSettings({ router }) {
 									<Button variant="outlined" onClick={() => router.back()}>
 										назад
 									</Button>
+
 									<LoadingButton
 										type="submit"
 										variant="contained"

@@ -64,11 +64,10 @@ export default function RegisterForm({ router, isVerified }) {
 			try {
 				const response = await createUser({
 					name: values.firstName,
-					lastName: values.lastName,
 					email: values.email,
 					image: { url: null, id: null },
 					password: values.password,
-					regType: "credentials",
+					provider: "credentials",
 				});
 
 				if (!response.ok) {
@@ -118,11 +117,11 @@ export default function RegisterForm({ router, isVerified }) {
 						<Alert severity="error">{errors.afterSubmit}</Alert>
 					)}
 
-					<Box sx={{ flexGrow: 1 }}>
+					{/*<Box sx={{ flexGrow: 1 }}>
 						<Typography sx={{ color: "text.secondary" }}>
 							* фамилию указывать не обязательно
 						</Typography>
-					</Box>
+					</Box>*/}
 
 					<Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
 						<TextField
@@ -133,13 +132,13 @@ export default function RegisterForm({ router, isVerified }) {
 							helperText={touched.firstName && errors.firstName}
 						/>
 
-						<TextField
+						{/*<TextField
 							fullWidth
 							label="Фамилия"
 							{...getFieldProps("lastName")}
 							error={Boolean(touched.lastName && errors.lastName)}
 							helperText={touched.lastName && errors.lastName}
-						/>
+						/>*/}
 					</Stack>
 
 					<TextField

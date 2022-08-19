@@ -9,8 +9,6 @@ import { v4 as uuidv4 } from "uuid";
 import { verifyPassword } from "../../../src/helpers/auth";
 import { createUser } from "../../../src/helpers/api/api-users";
 
-//import { saveLastUserLogin } from "../../../src/helpers/api/api-users";
-
 export default NextAuth({
 	session: { jwt: true },
 	secret: process.env.NEXTAUTH_SECRET, //! разобраться
@@ -30,6 +28,10 @@ export default NextAuth({
 				);
 
 				const user = await res.json();
+
+				if (!user.password) {
+					throw new Error("Пароль для этого аккаунта не установлен.");
+				}
 
 				if (res.ok && user) {
 					const isValid = await verifyPassword(
@@ -59,6 +61,7 @@ export default NextAuth({
 
 	callbacks: {
 		async signIn({ user, account, profile }) {
+			console.log("user", user);
 			if (account?.provider === "credentials") return true;
 			if (!user?.email) return false;
 
@@ -68,21 +71,26 @@ export default NextAuth({
 					method: "GET",
 				}
 			);
+			if (response.ok) return true;
 
-			if (!response.ok) {
+			const data = await response.json();
+
+			if (data?.message === "noUser") {
 				const result = await createUser({
 					name: user?.name,
-					lastName: "",
 					email: user?.email,
-					image: { url: user?.image, id: null },
-					password: uuidv4(),
-					regType: account?.provider,
+					image: user?.image,
+					provider: account?.provider,
 				});
+
 				if (!result.ok) {
 					return false;
 				}
+
+				return true;
 			}
-			return true;
+
+			return false;
 		},
 	},
 

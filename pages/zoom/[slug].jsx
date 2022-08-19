@@ -20,12 +20,12 @@ const ZoomPage = ({ user }) => {
 				<link
 					type="text/css"
 					rel="stylesheet"
-					href="https://source.zoom.us/2.4.0/css/bootstrap.css"
+					href="https://source.zoom.us/2.6.0/css/bootstrap.css"
 				/>
 				<link
 					type="text/css"
 					rel="stylesheet"
-					href="https://source.zoom.us/2.4.0/css/react-select.css"
+					href="https://source.zoom.us/2.6.0/css/react-select.css"
 				/>
 			</Head>
 			{isError && "Ошибка конференции Zoom"}

@@ -19,7 +19,7 @@ const ErrorAuthPage = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			router.push("/auth");
-		}, 2000);
+		}, 3000);
 	}, []);
 
 	return (

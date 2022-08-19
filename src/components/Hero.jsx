@@ -32,36 +32,36 @@ const Hero = () => {
 	return (
 		<RootStyle initial="initial" animate="animate" variants={varWrapEnter}>
 			<ContentStyle>
-				{/*<motion.div variants={varFadeInDown}>*/}
-				<Box
-					sx={
-						{
-							//display: "flex",
-							//alignItems: "center",
-							//textAlign: "center",
+				<motion.div variants={varFadeInDown}>
+					<Box
+						sx={
+							{
+								//display: "flex",
+								//alignItems: "center",
+								//textAlign: "center",
+							}
 						}
-					}
-				>
-					<Typography
-						component="h2"
-						variant="inherit"
-						gutterBottom
-						sx={{
-							color: "primary.main",
-							fontFamily: "fontFamilySecondary",
-							fontSize: { xs: "4vw", md: "2vw" },
-							lineHeight: 2.2,
-							letterSpacing: "1vw",
-							whiteSpace: "nowrap",
-							textTransform: "uppercase",
-							paddingLeft: "2vw",
-							fontWeight: 400,
-						}}
 					>
-						Online studio
-					</Typography>
-				</Box>
-				{/*</motion.div>*/}
+						<Typography
+							component="h2"
+							variant="inherit"
+							gutterBottom
+							sx={{
+								color: "primary.main",
+								fontFamily: "fontFamilySecondary",
+								fontSize: { xs: "4vw", md: "2vw" },
+								lineHeight: 2.2,
+								letterSpacing: "1vw",
+								whiteSpace: "nowrap",
+								textTransform: "uppercase",
+								paddingLeft: "2vw",
+								fontWeight: 400,
+							}}
+						>
+							Online studio
+						</Typography>
+					</Box>
+				</motion.div>
 
 				{/*<motion.div variants={varFadeInUp}>*/}
 				<Typography

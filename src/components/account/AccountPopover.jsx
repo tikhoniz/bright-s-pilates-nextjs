@@ -76,7 +76,7 @@ export default function AccountPopover() {
 				>
 					<MAvatar
 						alt={user?.name}
-						src={url}
+						src={user?.image}
 						sx={{ width: "44px", height: "44px" }}
 					/>
 				</MIconButton>

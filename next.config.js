@@ -70,10 +70,10 @@ module.exports = (phase) => {
 			//	defaultLocale: "ru",
 			//},
 
-			i18n: {
-				defaultLocale: "ru",
-				locales: ["ru", "en", "de", "fr"],
-			},
+			//i18n: {
+			//	defaultLocale: "ru",
+			//	locales: ["ru", "en", "de", "fr"],
+			//},
 			react: { useSuspense: false }, //this line
 		};
 	}

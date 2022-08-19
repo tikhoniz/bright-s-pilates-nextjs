@@ -49,7 +49,7 @@ const newUserMail = (user, locale = "ru") => {
 		return {
 			to: "brightspilates@gmail.com",
 			from: process.env.info_email_from,
-			subject: `Регистрация нового пользователя ${user?.name} ${user?.lastName}`,
+			subject: `Регистрация нового пользователя ${user?.name}`,
 			html: `
 			<table border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="width:90%; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; margin: 0 auto; max-width:500px;">
   <tbody>

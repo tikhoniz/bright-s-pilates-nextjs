@@ -7,17 +7,10 @@ const publitio = new PublitioAPI(
 //* @desc Create a user
 //* @route POST /api/auth/singup
 //* @access Public
-export async function createUser({
-	name,
-	lastName,
-	email,
-	image,
-	password,
-	regType,
-}) {
+export async function createUser({ name, email, image, password, provider }) {
 	const response = await fetch(`${process.env.localhost}/api/auth/singup`, {
 		method: "POST",
-		body: JSON.stringify({ name, lastName, email, image, password, regType }),
+		body: JSON.stringify({ name, email, image, password, provider }),
 		headers: { "Content-Type": "application/json" },
 	})
 		.then(async (response) => {
@@ -82,31 +75,10 @@ export async function deleteAvatarPublitio(id) {
 //* @desc  Update user profile
 //* @route  PATCH /api/users/:slug
 //* @access  Private
-export async function updateUserProfile({
-	id,
-	city,
-	email,
-	about,
-	cover,
-	avatar,
-	country,
-	displayName,
-	phoneNumber,
-	displayLastName,
-}) {
-	const response = await fetch(`/api/users/${id}`, {
+export async function updateUserProfile(user) {
+	const response = await fetch(`/api/users/${user.id}`, {
 		method: "PATCH",
-		body: JSON.stringify({
-			city,
-			email,
-			about,
-			cover,
-			avatar,
-			country,
-			phoneNumber,
-			displayName,
-			displayLastName,
-		}),
+		body: JSON.stringify(user),
 		headers: { "Content-Type": "application/json" },
 	})
 		.then(async (response) => {

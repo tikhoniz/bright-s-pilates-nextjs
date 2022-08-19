@@ -19,7 +19,6 @@ export default function Head() {
 				<TableCell sx={{ minWidth: 100 }}>Уровень</TableCell>
 				<TableCell sx={{ minWidth: 100 }}>Длительность</TableCell>
 				<TableCell sx={{ minWidth: 100 }}>Тренер</TableCell>
-				{/*{user && <TableCell sx={{ minWidth: 100 }}>Запись</TableCell>}*/}
 				<TableCell />
 			</TableRow>
 		</TableHeadStyle>

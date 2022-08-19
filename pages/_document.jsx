@@ -15,7 +15,7 @@ class MyDocument extends Document {
 				<Head>
 					<meta name="theme-color" content={palette.primary.main} />
 					<link rel="shortcut icon" href="/favicon/favicon.ico" />
-					<links
+					<link
 						rel="apple-touch-icon"
 						sizes="180x180"
 						href="/favicon/apple-touch-icon.png"
